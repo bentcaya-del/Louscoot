@@ -192,5 +192,4 @@ public boolean estDisponibleAuxDates(String debutPrevu, String finPrevue) {
 
 }
 
-
 }

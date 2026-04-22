@@ -100,7 +100,7 @@ public class VuePrincipale extends JFrame implements Observer {
         panelFilters.add(pCouleur);
         this.add(panelFilters, BorderLayout.EAST);
 
-        //
+        
 
 
 

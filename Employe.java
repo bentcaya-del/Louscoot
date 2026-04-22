@@ -13,7 +13,7 @@ public class Employe {
     public Employe() {
     }
 
-    /**
+    /*
      * 
      */
     private String nom;
