@@ -144,26 +144,86 @@ public class Parc {
         return meilleurEmploye;
     }
 
-    public Vector<Scooter> filtrerScooters(String marqueRecherchee, double prixMax, double prixMin, String dateRechercheDebut, String dateRechercheFin, Type_permis permisRequis, String motorisationRecherchee) {
-    Vector<Scooter> resultats = new Vector<Scooter>();
-
-    for (int i = 0; i < Liste_scooter.size(); i++) {
+    public Vector <Scooter> filtrerMarque(String marqueRecherchee){
+        Vector<Scooter> resultats = new Vector<Scooter>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
         Scooter s = Liste_scooter.get(i);
         
         boolean correspondMarque = marqueRecherchee.equals("Toutes") || s.getModele().getMarque().getNomMarque().equalsIgnoreCase(marqueRecherchee);
-        boolean correspondPrixMax = (prixMax == 0) || (s.getPrix_jour() <= prixMax);
-        boolean correspondPrixMin = (prixMin == 0) || (s.getPrix_jour() >= prixMin);
-        boolean correspondPermis = (permisRequis == null) || (s.getModele().getPermis().equals(permisRequis));
-        boolean correspondDisponibilite = s.estDisponibleAuxDates(dateRechercheDebut, dateRechercheFin);
-        boolean correspondMotorisation = (s.getModele().getMotorisation().equalsIgnoreCase(motorisationRecherchee));
-        boolean correspondCouleur = (s.getColoris().equalsIgnoreCase(motorisationRecherchee));
-        
-        if (correspondMarque && correspondPrixMax && correspondPrixMin && correspondPermis && correspondDisponibilite && correspondMotorisation && correspondCouleur) {
+        if (correspondMarque) {
             resultats.add(s);
             }
         }
-    return resultats;
+        return resultats;
     }
+    
+    public Vector <Scooter> filtrerPrix(double prixMax, double prixMin){
+        Vector<Scooter> resultats = new Vector<Scooter>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+        Scooter s = Liste_scooter.get(i);
+        
+        boolean correspondPrixMax = (prixMax == 0) || (s.getPrix_jour() <= prixMax);
+        boolean correspondPrixMin = (prixMin == 0) || (s.getPrix_jour() >= prixMin);
+        if (correspondPrixMax && correspondPrixMin) {
+            resultats.add(s);
+            }
+        }
+        return resultats;
+    }
+
+    public Vector <Scooter> filtrerDisponibilite(String dateRechercheDebut, String dateRechercheFin){
+        Vector<Scooter> resultats = new Vector<Scooter>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+        Scooter s = Liste_scooter.get(i);
+        
+        boolean correspondDisponibilite = s.estDisponibleAuxDates(dateRechercheDebut, dateRechercheFin);
+        if (correspondDisponibilite) {
+            resultats.add(s);
+            }
+        }
+        return resultats;
+    }
+
+    public Vector <Scooter> filtrerPermis(Type_permis permisRequis){
+        Vector<Scooter> resultats = new Vector<Scooter>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+        Scooter s = Liste_scooter.get(i);
+        
+        boolean correspondPermis = (permisRequis == null) || (s.getModele().getPermis().equals(permisRequis));
+        if (correspondPermis) {
+            resultats.add(s);
+            }
+        }
+        return resultats;
+    }
+
+    public Vector <Scooter> filtrerMotorisation(String motorisationRecherchee){
+        Vector<Scooter> resultats = new Vector<Scooter>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+        Scooter s = Liste_scooter.get(i);
+        
+        boolean correspondMotorisation = (s.getModele().getMotorisation().equalsIgnoreCase(motorisationRecherchee));
+        if (correspondMotorisation) {
+            resultats.add(s);
+            }
+        }
+        return resultats;
+    }
+
+    public Vector <Scooter> filtrerCouleur(String couleurRecherchee){
+        Vector<Scooter> resultats = new Vector<Scooter>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+        Scooter s = Liste_scooter.get(i);
+        
+        boolean correspondCouleur = (s.getColoris().equalsIgnoreCase(couleurRecherchee));
+        if (correspondCouleur) {
+            resultats.add(s);
+            }
+        }
+        return resultats;
+    }
+
+
 
 
 
