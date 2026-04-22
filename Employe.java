@@ -127,11 +127,15 @@ public class Employe {
     public void setParc(Parc parc) {
         Parc = parc;
     }
-    public Location creerContrat(String vdate_debut, String vdate_fin, Scooter vscooter,Client vclient){
-        Location contrat = new Location(vdate_debut, vdate_fin, vscooter, null, this, vclient);
+    public Location creerContrat(String vdate_debut, String vdate_fin, int vnombre_jour, Scooter vscooter, Client vclient){
+        Location contrat = new Location(vdate_debut, vdate_fin, vnombre_jour, vscooter, null, this, vclient);
         vclient.ajoutLocation(contrat);
-        System.out.println("Contrat créé pour le client " + vclient.getNom() + " " + vclient.getPrenom() + " par l'employé " + this.getNom() + " " + this.getPrenom()+" pour le scooter " + vscooter.Modele.getNom_modele()+" pour la période du " + vdate_debut + " au " + vdate_fin);
+        System.out.println("Contrat créé pour le client " + vclient.getNom() + " " + vclient.getPrenom() + " par l'employé " + this.getNom() + " " + this.getPrenom()+" pour le scooter " + vscooter.getModele().getNom_modele()+" pour la période du " + vdate_debut + " au " + vdate_fin);
         return contrat;
+    }
+    
+    public int getNbLocationsGerees() {
+        return Liste_location.size();
     }
     
 

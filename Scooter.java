@@ -173,8 +173,12 @@ public class Scooter {
             
         } 
           return true;
+        }
     
+    public void setEstDisponible(boolean dispo) {
+        // Méthode nécessaire pour cloturerLocation
     }
+        }
     
     
     }

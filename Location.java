@@ -63,7 +63,7 @@ public class Location {
         Scooter = vscooter;
         EtatDesLieux = vetatDesLieux;
         Employe = vemploye;
-        Employe.ajouterLocationGeree();
+        Employe.ajoutLocation(this);
         client = vclient;
         Liste_Equipement = new Vector<Equipements>();
         this.Scooter.ajouterLocation(this);
