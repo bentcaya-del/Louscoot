@@ -13,7 +13,7 @@ public class Modele {
     public Modele() {
     }
 
-    /**
+    /*
      * 
      */
     private String nom_modele;

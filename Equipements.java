@@ -2,7 +2,7 @@
 
 import java.util.*;
 
-/**
+/*
  * 
  */
 public class Equipements {

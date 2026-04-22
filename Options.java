@@ -41,7 +41,7 @@ public class Options {
      */
     private String carburant;
 
-    /**
+    /*
      * 
      */
     private Scooter Scooter;

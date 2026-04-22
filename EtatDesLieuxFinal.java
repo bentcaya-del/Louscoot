@@ -27,7 +27,7 @@ public class EtatDesLieuxFinal {
      */
     private double kilometrage;
 
-    /**
+    /*
      * 
      */
     private double valeur_penalite;
