@@ -9,8 +9,8 @@ public class Main {
 
         Parc monParc = new Parc("LouScoot Evry", "10 Rue de la Paix", "Evry", "0102030405");
         
-        Scooter s1 = new Scooter("AA-111-AA","Noir", 100.0, 50.0, nmax, monParc);
-        Scooter s2 = new Scooter("BB-222-BB", "Blanc", 500.0, 40.0, liberty, monParc);
+        Scooter s1 = new Scooter("AA-111-AA","Noir", 100.0, 50.0, 40.0, nmax, monParc);
+        Scooter s2 = new Scooter("BB-222-BB", "Blanc", 500.0, 40.0, 35.0, liberty, monParc);
         monParc.ajoutScooter(s1);
         monParc.ajoutScooter(s2);
 

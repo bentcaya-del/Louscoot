@@ -77,7 +77,7 @@ public class VuePrincipale extends JFrame {
         JPanel pMarque = new JPanel();
         pMarque.setLayout(new BoxLayout(pMarque, BoxLayout.Y_AXIS));
         pMarque.setBorder(BorderFactory.createTitledBorder("Marque"));
-        String[] marqueT = {"Yamaha", "Honda", "Piaggio"};
+        String[] marqueT = {"Tout","Yamaha", "Honda", "Piaggio"};
         JComboBox<String> comboMarque = new JComboBox<>(marqueT);
         comboMarque.setMaximumSize(new Dimension(180, 30));
         pMarque.add(comboMarque);
@@ -107,7 +107,7 @@ public class VuePrincipale extends JFrame {
         JPanel pCouleur = new JPanel();
         pCouleur.setLayout(new BoxLayout(pCouleur, BoxLayout.Y_AXIS));
         pCouleur.setBorder(BorderFactory.createTitledBorder("Couleur"));
-        String[] couleurT = {"Rouge", "Bleu", "Noir","Blanc","Gris","Vert","Jaune","Violet","Orange","Rose","Autre"};
+        String[] couleurT = {"Tout","Rouge", "Bleu", "Noir","Blanc","Gris","Vert","Jaune","Violet","Orange","Rose","Autre"};
         JComboBox<String> comboCouleur = new JComboBox<>(couleurT);
         comboCouleur.setMaximumSize(new Dimension(180, 30));
         pCouleur.add(comboCouleur);
@@ -115,7 +115,7 @@ public class VuePrincipale extends JFrame {
         panelFilters.add(pCouleur);
         this.add(panelFilters, BorderLayout.EAST);
 
-        
+        //
 
 
 
