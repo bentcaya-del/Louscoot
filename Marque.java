@@ -23,7 +23,7 @@ public class Marque {
      */
     private String pays_origine;
 
-    /**
+    /*
      * 
      */
     private Vector<Modele> Liste_modele;
