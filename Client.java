@@ -20,7 +20,7 @@ public class Client {
     /**
      * 
      */
-    private String Prenom;
+    private String prenom;
 
     /**
      * 
