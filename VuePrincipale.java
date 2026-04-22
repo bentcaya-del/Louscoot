@@ -1,8 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
-import java.util.*;
 
-public class VuePrincipale extends JFrame {
+public class VuePrincipale extends JFrame{   
     private JLabel titreApp;
     private JTextField barreRecherche;
     private JPanel panneauScoot ;
@@ -11,7 +10,7 @@ public class VuePrincipale extends JFrame {
     private JButton btnProfil;
     private JButton commande;
     private JButton contact; 
-    
+
     public VuePrincipale(){
         // model.addObserver(this);
         this.setTitle("LOUSCOOT - Location de scooters");
@@ -32,30 +31,15 @@ public class VuePrincipale extends JFrame {
         panelFilters.setPreferredSize(new Dimension(200, 0));
 
 
-        JPanel panelTri = new JPanel();
-        panelTri.setLayout(new BoxLayout(panelTri, BoxLayout.Y_AXIS));
-        panelTri.setBorder(BorderFactory.createTitledBorder("Trier par"));
-
-        JRadioButton radioCroissant = new JRadioButton("Prix croissant");
-        JRadioButton radioDecroissant = new JRadioButton("Prix décroissant");
-
-        //Ce groupe invisible s'assure qu'un seul bouton est actif à la fois
-        ButtonGroup groupeTri = new ButtonGroup();
-        groupeTri.add(radioCroissant);
-        groupeTri.add(radioDecroissant);
-
-        panelTri.add(radioCroissant);
-        panelTri.add(radioDecroissant);
-
-        // On ajoute la petite box au grand menu de droite
-        panelFilters.add(panelTri);
-        panelFilters.add(Box.createRigidArea(new Dimension(0, 10))); // Espacement
+        //box pour les filtres
+        panelFilters.add(new JCheckBox("Prix croissant"));
+        panelFilters.add(new JCheckBox("Prix décroissant"));
 
         // box pour types de permis
         JPanel panelPermis = new JPanel();
         panelPermis.setLayout(new BoxLayout(panelPermis, BoxLayout.Y_AXIS));
         panelPermis.setBorder(BorderFactory.createTitledBorder("Type de permis"));
-        String[] permisTypes = {"A", "A1", "Sans permis"};
+        String[] permisTypes = {"Tout","A", "A1", "Sans permis"};
         JComboBox<String> comboPermis = new JComboBox<>(permisTypes);
         comboPermis.setMaximumSize(new Dimension(180, 30));
         panelPermis.add(comboPermis);
@@ -66,7 +50,7 @@ public class VuePrincipale extends JFrame {
         JPanel pMotorisation = new JPanel();
         pMotorisation.setLayout(new BoxLayout(pMotorisation, BoxLayout.Y_AXIS));
         pMotorisation.setBorder(BorderFactory.createTitledBorder("Motorisation"));
-        String[] motorisationT = {"Essence", "Electrique"};
+        String[] motorisationT = {"Tout","Essence", "Electrique"};
         JComboBox<String> comboMoto = new JComboBox<>(motorisationT);
         comboMoto.setMaximumSize(new Dimension(180, 30));
         pMotorisation.add(comboMoto);
@@ -115,7 +99,42 @@ public class VuePrincipale extends JFrame {
         panelFilters.add(pCouleur);
         this.add(panelFilters, BorderLayout.EAST);
 
-        //
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
+        panelFilters.add(pCouleur);
+
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 15))); // Grand espace
+        JButton btnAppliquer = new JButton("Appliquer les filtres");
+        btnAppliquer.setAlignmentX(Component.CENTER_ALIGNMENT); // Pour le centrer
+        btnAppliquer.setBackground(new Color(255, 0,0 )); 
+        btnAppliquer.setForeground(Color.BLACK); // Texte en NOIR
+        panelFilters.add(btnAppliquer);
+
+
+        panelFilters.setVisible(false);
+
+        JPanel panelMenuDroit = new JPanel(new BorderLayout());
+        JButton btnToggleFiltres = new JButton("Filtres ◀");
+        btnToggleFiltres.setFont(new Font("Arial", Font.BOLD, 14));
+        
+        btnToggleFiltres.addActionListener(e -> {
+            boolean estVisible = panelFilters.isVisible();
+            panelFilters.setVisible(!estVisible);
+            if (estVisible) {
+                btnToggleFiltres.setText("Filtres ◀");
+            } else {
+                btnToggleFiltres.setText("Filtres ▼");
+            }
+            this.revalidate();
+            this.repaint();
+        });
+
+        panelMenuDroit.add(btnToggleFiltres, BorderLayout.NORTH); // Bouton en haut
+        panelMenuDroit.add(panelFilters, BorderLayout.CENTER);    // Filtres en dessous
+
+        // Et on ajoute ce conteneur à droite de la fenêtre principale !
+        this.add(panelMenuDroit, BorderLayout.EAST);
+
+
 
 
 
@@ -126,29 +145,36 @@ public class VuePrincipale extends JFrame {
         
         this.pack();
         this.setVisible(true);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
