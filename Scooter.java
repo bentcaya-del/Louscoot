@@ -1,5 +1,5 @@
 
-
+import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -39,22 +39,15 @@ public class Scooter {
      */
     private double prix_jour;
 
-
-   
-    private boolean estDisponible = true;
-
     /**
      * 
      */
-    private Modele Modele;
+    private  Modele Modele;
 
     /**
      * 
      */
     private Vector<Location> Liste_location;
-
-    
-    private Vector<Location> historiqueLocations = new Vector<Location>();
 
     /**
      * 
@@ -66,11 +59,12 @@ public class Scooter {
      */
     private Vector<Options> liste_option;
 
-    public Scooter(String vimmatriculation, String vcoloris, double vkilometrage_total,
+    public Scooter(String vimmatriculation, String vcoloris, double vkilometrage_total, double vprix_caution,
             double vprix_jour, Modele vmodele, Parc vclient) {
         immatriculation = vimmatriculation;
         coloris = vcoloris;
         kilometrage_total = vkilometrage_total;
+        prix_caution = vprix_caution;
         prix_jour = vprix_jour;
         Modele = vmodele;
         client = vclient;
@@ -108,10 +102,6 @@ public class Scooter {
 
     public Modele getModele() {
         return Modele;
-    }
-
-    public boolean getEstDisponible() {
-        return estDisponible;
     }
 
     public Vector<Location> getListe_location() {
@@ -153,43 +143,41 @@ public class Scooter {
     public void setClient(Parc client) {
         this.client = client;
     }
-
-    public void setEstDisponible(boolean vEtat) {
-        this.estDisponible = vEtat;
-    }
-
-
-    public void rouler(double kilometrage_parcourus){
-        kilometrage_total += kilometrage_parcourus;
-    }
-
-    public boolean verifierPermisClient(Client vClient) {
-        Type_permis permisRequis = this.getModele().getPermis();
-        for (int i = 0; i < vClient.getListe_permis().size(); i++) {
-            if (vClient.getListe_permis().get(i).equals(permisRequis)) {
-                return true; 
+     public void rouler(double kilometrage_parcourus){
+            kilometrage_total += kilometrage_parcourus;
+        }
+    
+        public boolean verifierPermisClient(Client vClient) {
+            Type_permis permisRequis = this.getModele().getPermis();
+            for (int i = 0; i < vClient.getListe_permis().size(); i++) {
+                if (vClient.getListe_permis().get(i).equals(permisRequis)) {
+                    return true; 
+                }
             }
+            return false;
         }
-        return false;
+    
+    
+    public void ajouterLocation(Location loc) {
+        this.Liste_location.add(loc);
     }
+    
+    public boolean estDisponibleAuxDates(String debutPrevu, String finPrevue) {
+        LocalDate debutDemande = LocalDate.parse(debutPrevu);
+        LocalDate finDemande = LocalDate.parse(finPrevue);
+    
+        for (Location x : Liste_location){
+            if (x.conflit(debutDemande, finDemande)) {
+                return false; 
+            }
+            
+        } 
+          return true;
+    
+    }
+    
+    
+    }
+    
 
-
-public void ajouterLocation(Location loc) {
-    this.historiqueLocations.add(loc);
-}
-
-public boolean estDisponibleAuxDates(String debutPrevu, String finPrevue) {
-    LocalDate debutDemande = LocalDate.parse(debutPrevu);
-    LocalDate finDemande = LocalDate.parse(finPrevue);
-
-    for (Location x : historiqueLocations){
-        if (x.conflit(debutDemande, finDemande)) {
-            return false; 
-        }
-        
-    } 
-      return true;
-
-}
-
-}
+    

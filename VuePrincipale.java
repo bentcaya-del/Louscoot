@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 
-public class VuePrincipale extends JFrame implements Observer {
+public class VuePrincipale extends JFrame {
     private JLabel titreApp;
     private JTextField barreRecherche;
     private JPanel panneauScoot ;
