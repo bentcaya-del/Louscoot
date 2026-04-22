@@ -1,5 +1,3 @@
-import java.io.*;
-import java.util.*;
 
 /**
  * 
@@ -27,7 +25,7 @@ public class EtatDesLieuxFinal {
      */
     private double kilometrage;
 
-    /*
+    /**
      * 
      */
     private double valeur_penalite;
