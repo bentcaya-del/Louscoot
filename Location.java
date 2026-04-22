@@ -74,11 +74,11 @@ public class Location {
         Liste_Equipement.add(equipement);
     }
 
-    public String getDate_debut() {
+    public LocalDate getDate_debut() {
         return date_debut;
     }
 
-    public String getDate_fin() {
+    public LocalDate getDate_fin() {
         return date_fin;
     }
 
@@ -106,11 +106,11 @@ public class Location {
         return client;
     }
 
-    public void setDate_debut(String date_debut) {
+    public void setDate_debut(LocalDate date_debut) {
         this.date_debut = date_debut;
     }
 
-    public void setDate_fin(String date_fin) {
+    public void setDate_fin(LocalDate date_fin) {
         this.date_fin = date_fin;
     }
 
@@ -192,7 +192,7 @@ public class Location {
 
 
     public boolean conflit(LocalDate dateD, LocalDate dateF){
-        return(dateD.isBefore(date_fin) && (dateF.isAfter(date_debut);
+        return(dateD.isBefore(date_fin) && (dateF.isAfter(date_debut)));
 
     }
 
