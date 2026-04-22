@@ -32,9 +32,24 @@ public class VuePrincipale extends JFrame {
         panelFilters.setPreferredSize(new Dimension(200, 0));
 
 
-        //box pour les filtres
-        panelFilters.add(new JCheckBox("Prix croissant"));
-        panelFilters.add(new JCheckBox("Prix décroissant"));
+        JPanel panelTri = new JPanel();
+        panelTri.setLayout(new BoxLayout(panelTri, BoxLayout.Y_AXIS));
+        panelTri.setBorder(BorderFactory.createTitledBorder("Trier par"));
+
+        JRadioButton radioCroissant = new JRadioButton("Prix croissant");
+        JRadioButton radioDecroissant = new JRadioButton("Prix décroissant");
+
+        //Ce groupe invisible s'assure qu'un seul bouton est actif à la fois
+        ButtonGroup groupeTri = new ButtonGroup();
+        groupeTri.add(radioCroissant);
+        groupeTri.add(radioDecroissant);
+
+        panelTri.add(radioCroissant);
+        panelTri.add(radioDecroissant);
+
+        // On ajoute la petite box au grand menu de droite
+        panelFilters.add(panelTri);
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 10))); // Espacement
 
         // box pour types de permis
         JPanel panelPermis = new JPanel();
