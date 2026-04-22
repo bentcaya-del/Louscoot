@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 
-public class VuePrincipale extends JFrame implements Observer {
+public class VuePrincipale extends JFrame {
     private JLabel titreApp;
     private JTextField barreRecherche;
     private JPanel panneauScoot ;
@@ -51,7 +51,7 @@ public class VuePrincipale extends JFrame implements Observer {
         JPanel pMotorisation = new JPanel();
         pMotorisation.setLayout(new BoxLayout(pMotorisation, BoxLayout.Y_AXIS));
         pMotorisation.setBorder(BorderFactory.createTitledBorder("Motorisation"));
-        String[] motorisationT = {"Essence", "Electrique", "Sans permis"};
+        String[] motorisationT = {"Essence", "Electrique"};
         JComboBox<String> comboMoto = new JComboBox<>(motorisationT);
         comboMoto.setMaximumSize(new Dimension(180, 30));
         pMotorisation.add(comboMoto);
@@ -112,12 +112,6 @@ public class VuePrincipale extends JFrame implements Observer {
         this.pack();
         this.setVisible(true);
     }
-
-
-
-
-
-
 
 
 
