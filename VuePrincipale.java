@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 
-public class VuePrincipale extends JFrame {   
+public class VuePrincipale extends JFrame implements java.util.Observer{   
     private JLabel titreApp;
     private JTextField barreRecherche;
     private JButton btnRechercher;
@@ -14,7 +14,7 @@ public class VuePrincipale extends JFrame {
     private JButton contact; 
 
     public VuePrincipale(Parc modele) {
-        // model.addObserver(this);
+        modele.addObserver(this);
         this.setTitle("LOUSCOOT - Location de scooters");
         this.setPreferredSize(new Dimension(1000 ,700));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -185,12 +185,17 @@ public class VuePrincipale extends JFrame {
         // On attache l'espion au bouton "Rechercher"
         btnRechercher.addActionListener(ctrlRecherche);
 
-            ControleurFiltre ctrlFiltre = new ControleurFiltre(modele, comboPermis, comboMoto, comboMarque, comboCouleur);
-            btnAppliquer.addActionListener(ctrlFiltre);
+        ControleurFiltre ctrlFiltre = new ControleurFiltre(modele, comboPermis, comboMoto, comboMarque, comboCouleur);
+        btnAppliquer.addActionListener(ctrlFiltre);
+
+        for (int i = 0; i < modele.getListe_scooter().size(); i++) {
+            Scooter s = modele.getListe_scooter().get(i);
+            panneauScoot.add(creerCarteScooter(s));
+        }
 
         this.pack();
         this.setVisible(true);
-}
+    }
 private JPanel creerCarteScooter(Scooter scooter) {
         JPanel carte = new JPanel(new BorderLayout(5, 5));
         carte.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2)); 
@@ -264,7 +269,27 @@ private JPanel creerCarteScooter(Scooter scooter) {
         carte.add(btnDetails, BorderLayout.SOUTH);
 
         return carte;
-}
+    }
+    @Override
+    public void update(java.util.Observable o, Object arg) {
+        // 1. On vide la grille actuelle
+        panneauScoot.removeAll();
+
+        // 2. On récupère la nouvelle liste de scooters envoyée par le Parc (après un filtre ou une recherche)
+        java.util.Vector<Scooter> listeScooters = (java.util.Vector<Scooter>) arg;
+
+        // 3. On crée une carte pour chaque scooter et on l'ajoute à la grille
+        if (listeScooters != null) {
+            for (int i = 0; i < listeScooters.size(); i++) {
+                Scooter s = listeScooters.get(i);
+                panneauScoot.add(creerCarteScooter(s));
+            }
+        }
+
+        // 4. On force la fenêtre à se redessiner
+        panneauScoot.revalidate();
+        panneauScoot.repaint();
+    }
 }
 
 
