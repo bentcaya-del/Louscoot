@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.util.Vector;
+
 import javax.swing.*;
 
 
@@ -12,8 +14,18 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JButton btnProfil;
     private JButton commande;
     private JButton contact; 
+    private JButton retour;
+    private Parc modele;
+    private JComboBox<String> comboMarque;
+    private JComboBox<String> comboMoto;
+    private JComboBox<String> comboPermis;
+    private JComboBox<String> comboCouleur;
+    private JRadioButton radioCroissant;
+    private JRadioButton radioDecroissant;
+    private ButtonGroup groupePrix;
 
     public VuePrincipale(Parc modele) {
+        this.modele = modele;
         modele.addObserver(this);
         this.setTitle("LOUSCOOT - Location de scooters");
         this.setPreferredSize(new Dimension(1000 ,700));
@@ -33,15 +45,24 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
 
         //box pour les filtres
-        panelFilters.add(new JCheckBox("Prix croissant"));
-        panelFilters.add(new JCheckBox("Prix décroissant"));
+        radioCroissant = new JRadioButton("Prix croissant");
+        radioDecroissant = new JRadioButton("Prix décroissant");
+        groupePrix = new ButtonGroup();
+        
+        groupePrix.add(radioCroissant);
+        groupePrix.add(radioDecroissant);
+        
+        panelFilters.add(radioCroissant);
+        panelFilters.add(radioDecroissant);
+
+        radioCroissant.addActionListener(e -> modele.trierParPrix(true));
+        radioDecroissant.addActionListener(e -> modele.trierParPrix(false));
 
         // box pour types de permis
         JPanel panelPermis = new JPanel();
         panelPermis.setLayout(new BoxLayout(panelPermis, BoxLayout.Y_AXIS));
         panelPermis.setBorder(BorderFactory.createTitledBorder("Type de permis"));
-        String[] permisTypes = {"Tout","A", "A1", "Sans permis"};
-        JComboBox<String> comboPermis = new JComboBox<>(permisTypes);
+        comboPermis = new JComboBox<>();
         comboPermis.setMaximumSize(new Dimension(180, 30));
         panelPermis.add(comboPermis);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -51,8 +72,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         JPanel pMotorisation = new JPanel();
         pMotorisation.setLayout(new BoxLayout(pMotorisation, BoxLayout.Y_AXIS));
         pMotorisation.setBorder(BorderFactory.createTitledBorder("Motorisation"));
-        String[] motorisationT = {"Tout","Essence", "Electrique"};
-        JComboBox<String> comboMoto = new JComboBox<>(motorisationT);
+        comboMoto = new JComboBox<>();
         comboMoto.setMaximumSize(new Dimension(180, 30));
         pMotorisation.add(comboMoto);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -61,9 +81,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //box pour marque
         JPanel pMarque = new JPanel();
         pMarque.setLayout(new BoxLayout(pMarque, BoxLayout.Y_AXIS));
-        pMarque.setBorder(BorderFactory.createTitledBorder("Marque"));
-        String[] marqueT = {"Tout","Yamaha", "Honda", "Piaggio"};
-        JComboBox<String> comboMarque = new JComboBox<>(marqueT);
+        pMarque.setBorder(BorderFactory.createTitledBorder("Marque"));;
+        comboMarque = new JComboBox<>();
         comboMarque.setMaximumSize(new Dimension(180, 30));
         pMarque.add(comboMarque);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -72,7 +91,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //box pour date de disponibilité
         JPanel pDate = new JPanel();
         pDate.setLayout(new BoxLayout(pDate, BoxLayout.Y_AXIS));
-        pDate.setBorder(BorderFactory.createTitledBorder("Date de disponibilité"));
+        pDate.setBorder(BorderFactory.createTitledBorder("Disponibilité"));
         JLabel labelDebut = new JLabel("Date de début:");
         JTextField dateDebut = new JTextField("JJ/MM/AAAA");
         dateDebut.setMaximumSize(new Dimension(180, 30));
@@ -88,12 +107,13 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         pDate.add(dateFin);
         panelFilters.add(pDate);
 
+        
+        
         //box pour couleur
         JPanel pCouleur = new JPanel();
         pCouleur.setLayout(new BoxLayout(pCouleur, BoxLayout.Y_AXIS));
         pCouleur.setBorder(BorderFactory.createTitledBorder("Couleur"));
-        String[] couleurT = {"Tout","Rouge", "Bleu", "Noir","Blanc","Gris","Vert","Jaune","Violet","Orange","Rose","Autre"};
-        JComboBox<String> comboCouleur = new JComboBox<>(couleurT);
+        comboCouleur = new JComboBox<>();
         comboCouleur.setMaximumSize(new Dimension(180, 30));
         pCouleur.add(comboCouleur);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -147,12 +167,20 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         commande = new JButton("Commandes");
         btnProfil = new JButton("Mon Profil");
         contact = new JButton("Contact");
+        retour = new JButton("Retour");
+
         
         panelNavigation.add(btnHistorique);
         panelNavigation.add(commande);
         panelNavigation.add(btnProfil);
         panelNavigation.add(contact);        
         panelHaut.add(panelNavigation);
+        panelNavigation.add(retour);
+
+        retour.addActionListener(e -> {
+            FenetreRetour fenetreRetour = new FenetreRetour();
+            fenetreRetour.setVisible(true);
+        });
 
         // On place ce bloc tout en haut
         this.add(panelHaut, BorderLayout.NORTH);
@@ -193,10 +221,14 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
             panneauScoot.add(creerCarteScooter(s));
         }
 
+        actualiserTousLesFiltres();
+
         this.pack();
         this.setVisible(true);
     }
-private JPanel creerCarteScooter(Scooter scooter) {
+
+    
+    private JPanel creerCarteScooter(Scooter scooter) {
         JPanel carte = new JPanel(new BorderLayout(5, 5));
 
         // 1. Nom du scooter en haut
@@ -245,6 +277,31 @@ private JPanel creerCarteScooter(Scooter scooter) {
         // 4. On force la fenêtre à se redessiner
         panneauScoot.revalidate();
         panneauScoot.repaint();
+    }
+    public void actualiserTousLesFiltres() {
+        // On mémorise ce que l'utilisateur avait sélectionné (pour ne pas le perdre au rafraîchissement)
+        Object marqueSel = comboMarque.getSelectedItem();
+        Object motoSel = comboMoto.getSelectedItem();
+        Object permisSel = comboPermis.getSelectedItem();
+        Object couleurSel = comboCouleur.getSelectedItem();
+
+        // On vide complètement toutes les boîtes
+        comboMarque.removeAllItems();
+        comboMoto.removeAllItems();
+        comboPermis.removeAllItems();
+        comboCouleur.removeAllItems();
+
+        // On demande au Parc toutes les listes à jour, et on remplit !
+        for (String m : modele.getMarquesUniques()) comboMarque.addItem(m);
+        for (String m : modele.getMotorisationsUniques()) comboMoto.addItem(m);
+        for (String p : modele.getPermisUniques()) comboPermis.addItem(p);
+        for (String c : modele.getCouleursUniques()) comboCouleur.addItem(c);
+
+        // 4. On remet la sélection d'avant (ou "Tout" si c'est le premier lancement)
+        if (marqueSel != null) comboMarque.setSelectedItem(marqueSel);
+        if (motoSel != null) comboMoto.setSelectedItem(motoSel);
+        if (permisSel != null) comboPermis.setSelectedItem(permisSel);
+        if (couleurSel != null) comboCouleur.setSelectedItem(couleurSel);
     }
 }
 

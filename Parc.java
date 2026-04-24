@@ -269,6 +269,72 @@ public class Parc extends Observable {
         }
         return resultats;
     }
+
+    public Vector<String> getMarquesUniques() {
+    // On utilise un TreeSet pour ne pas avoir de doublons et trier de A à Z
+    Set<String> marques = new TreeSet<>();
+
+    for (int i = 0; i < Liste_scooter.size(); i++) {
+        marques.add(Liste_scooter.get(i).getModele().getMarque().getNomMarque());
+    }
+    Vector<String> listeFinale = new Vector<>();
+    listeFinale.add("Tout"); // On ajoute l'option "Tout" en premier
+    listeFinale.addAll(marques);
+    // On transforme l'ensemble en Vector pour que la JComboBox puisse le lire
+    return listeFinale;
+    }
+    
+    public Vector<String> getCouleursUniques() {
+        Set<String> couleurs = new TreeSet<>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+            couleurs.add(Liste_scooter.get(i).getColoris());
+        }
+        Vector<String> listeFinale = new Vector<>();
+        listeFinale.add("Tout");
+        listeFinale.addAll(couleurs);
+        return listeFinale;
+    }
+
+    public Vector<String> getMotorisationsUniques() {
+        Set<String> moteurs = new TreeSet<>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+            moteurs.add(Liste_scooter.get(i).getModele().getMotorisation());
+        }
+        Vector<String> listeFinale = new Vector<>();
+        listeFinale.add("Tout");
+        listeFinale.addAll(moteurs);
+        return listeFinale;
+    }
+
+    public Vector<String> getPermisUniques() {
+        Set<String> permis = new TreeSet<>();
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+            // On met .toString() car c'est un Enum
+            permis.add(Liste_scooter.get(i).getModele().getPermis().toString());
+        }
+        Vector<String> listeFinale = new Vector<>();
+        listeFinale.add("Tout");
+        listeFinale.addAll(permis);
+        return listeFinale;
+    }
+
+    public void trierParPrix(boolean croissant) {
+        
+        Liste_scooter.sort(new java.util.Comparator<Scooter>() {
+            @Override
+            public int compare(Scooter s1, Scooter s2) {
+                if (croissant) {
+                    // Du moins cher au plus cher
+                    return Double.compare(s1.getPrix_jour(), s2.getPrix_jour());
+                } else {
+                    // Du plus cher au moins cher
+                    return Double.compare(s2.getPrix_jour(), s1.getPrix_jour());
+                }
+            }
+        });
+        this.setChanged();
+        this.notifyObservers(Liste_scooter);
+    }
     
 
 

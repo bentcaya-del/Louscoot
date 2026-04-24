@@ -6,6 +6,7 @@ public enum Type_permis {
     Sans_Permis,
     A,
     A1,
+    A2,
     B,
     BE,
     C1,
