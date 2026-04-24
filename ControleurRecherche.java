@@ -12,11 +12,11 @@ public class ControleurRecherche implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        // 1. On récupère ce que l'utilisateur a tapé
+        // On récupère ce que l'utilisateur a tapé
         String motCle = champRecherche.getText();
         
         // Petite sécurité : si c'est le texte par défaut, on cherche tout (mot clé vide)
-        if (motCle.equals("Rechercher un scooter...")) {
+        if (motCle.equals("")) {
             motCle = ""; 
         }
 
