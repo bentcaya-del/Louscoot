@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * 
  */
-public class Parc {
+public class Parc extends Observable {
 
     /**
      * Default constructor
@@ -222,8 +222,44 @@ public class Parc {
         }
         return resultats;
     }
+// Méthode pour chercher un scooter par son nom de modèle
+    public void rechercherScooters(String motCle) {
+        Vector<Scooter> resultats = new Vector<>();
+        String rechercheMin = motCle.toLowerCase();
+        // On fouille dans la liste de tous les scooters
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+            Scooter s = Liste_scooter.get(i);
+            String nomModele = s.getModele().getNom_modele().toLowerCase();
+            if (nomModele.contains(rechercheMin)) {
+                resultats.add(s);
+            }
+        }
+         this.setChanged(); // On prévient Java qu'il y a du changement
+        this.notifyObservers(resultats); // On envoie les résultats à la vue !
+    }
 
+        //combiner tous tes filtres
+    public void appliquerFiltresMultiples(String marqueReq, String permisReq, String motoReq, String couleurReq) {
+        Vector<Scooter> resultats = new Vector<Scooter>();
 
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+            Scooter s = Liste_scooter.get(i);
+            //on vérifie si l'utilisateur a choisi "Tout"
+            boolean okMarque = marqueReq.equals("Tout") || s.getModele().getMarque().getNomMarque().equalsIgnoreCase(marqueReq);
+            //toString parce que c'est un enum, et on veut comparer avec le string de la combo box
+            boolean okPermis = permisReq.equals("Tout") || s.getModele().getPermis().toString().equalsIgnoreCase(permisReq);
+            boolean okMoto = motoReq.equals("Tout") || s.getModele().getMotorisation().equalsIgnoreCase(motoReq);
+            boolean okCouleur = couleurReq.equals("Tout") || s.getColoris().equalsIgnoreCase(couleurReq);
+            // Si le scooter respecte TOUS les choix, on le garde
+            if (okMarque && okPermis && okMoto && okCouleur) {
+                resultats.add(s);
+            }
+        }
+        // --- LA MAGIE DU MVC ---
+        this.setChanged(); // On prévient Java qu'il y a du changement
+        this.notifyObservers(resultats); // On envoie les résultats à la vue !
+    }
+    
 
 
 

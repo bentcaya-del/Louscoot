@@ -12,7 +12,7 @@ public class VuePrincipale extends JFrame{
     private JButton commande;
     private JButton contact; 
 
-    public VuePrincipale(){
+    public VuePrincipale(Parc modele) {
         // model.addObserver(this);
         this.setTitle("LOUSCOOT - Location de scooters");
         this.setPreferredSize(new Dimension(1000 ,700));
@@ -177,6 +177,12 @@ public class VuePrincipale extends JFrame{
         //centre de la zone centrale
         zoneCentrale.add(scrollPane, BorderLayout.CENTER); 
         this.add(zoneCentrale, BorderLayout.CENTER);
+
+
+        ControleurRecherche ctrlRecherche = new ControleurRecherche(modele, barreRecherche);
+        
+        // On attache l'espion au bouton "Rechercher"
+        btnRechercher.addActionListener(ctrlRecherche);
 
         this.pack();
         this.setVisible(true);
