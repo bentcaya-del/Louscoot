@@ -2,6 +2,8 @@
 
 import java.util.*;
 
+import javax.swing.JPanel;
+
 /**
  * 
  */
@@ -258,6 +260,30 @@ public class Parc extends Observable {
         // --- LA MAGIE DU MVC ---
         this.setChanged(); // On prévient Java qu'il y a du changement
         this.notifyObservers(resultats); // On envoie les résultats à la vue !
+    }
+
+    @Override
+    public void update(java.util.Observable o, Object arg) {
+        // 1. On vide le panneau actuel pour ne pas empiler les vieux résultats
+        panneauScoot.removeAll();
+
+        // 2. On récupère la liste envoyée par le modèle
+        java.util.Vector<Scooter> listeScooters = (java.util.Vector<Scooter>) arg;
+
+        // 3. ICI ON UTILISE TA MÉTHODE :
+        for (int i = 0; i < listeScooters.size(); i++) {
+            Scooter s = listeScooters.get(i);
+            
+            // Appel de ta méthode qui crée la carte pour UN scooter
+            JPanel carte = creerCarteScooter(s); 
+            
+            // Ajout au panneau principal
+            panneauScoot.add(carte); 
+        }
+
+        // 4. On rafraîchit l'affichage
+        panneauScoot.revalidate();
+        panneauScoot.repaint();
     }
     
 
