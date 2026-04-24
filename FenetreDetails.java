@@ -3,7 +3,7 @@ import javax.swing.*;
 
 public class FenetreDetails extends JFrame {
     
-    public FenetreDetails(Scooter scooter) {
+    public FenetreDetails(Parc modele,Scooter scooter) {
         setTitle("Détails : " + scooter.getModele().getNom_modele());
         setSize(400, 350);
         setLocationRelativeTo(null); // Centré à l'écran
@@ -26,9 +26,23 @@ public class FenetreDetails extends JFrame {
         
         add(panelInfos, BorderLayout.CENTER);
 
+        JPanel panelBas = new JPanel();
+
+        //bouton Louer
+        JButton btnLouer = new JButton("Louer");
+        btnLouer.addActionListener(e -> {
+            FenetreLouer fenetre = new FenetreLouer(modele, scooter);
+            fenetre.setVisible(true);
+            dispose();
+        });
+
         // Bouton fermer
         JButton btnFermer = new JButton("Fermer");
         btnFermer.addActionListener(e -> dispose());
         add(btnFermer, BorderLayout.SOUTH);
+        panelBas.add(btnLouer);
+        panelBas.add(btnFermer);
+        add(panelBas, BorderLayout.SOUTH);
+        
     }
 }

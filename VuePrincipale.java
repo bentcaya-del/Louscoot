@@ -198,17 +198,17 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 private JPanel creerCarteScooter(Scooter scooter) {
         JPanel carte = new JPanel(new BorderLayout(5, 5));
 
-        // 1. Nom du scooter en haut
+        // Nom du scooter en haut
         JLabel labelModele = new JLabel(scooter.getModele().getNom_modele(), SwingConstants.CENTER);
         labelModele.setFont(new Font("Arial", Font.BOLD, 18));
         carte.add(labelModele, BorderLayout.NORTH);
 
         // 2. Infos rapides au centre (Moteur et Prix)
-        JPanel panelInfos = new JPanel(new GridLayout(2, 1));
+        JPanel panelInfos = new JPanel(new GridLayout(4, 1,0,5));
         panelInfos.setBackground(Color.WHITE);
         panelInfos.add(new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER));
         panelInfos.add(new JLabel("Marque : " + scooter.getModele().getMarque().getNomMarque()));
-
+        panelInfos.add(new JLabel("Couleur : " + scooter.getColoris(), SwingConstants.CENTER));
         
         JLabel labelPrix = new JLabel(scooter.getPrix_jour() + " € / jour", SwingConstants.CENTER);
         labelPrix.setForeground(new Color(0, 150, 0)); // Prix en vert
@@ -229,13 +229,13 @@ private JPanel creerCarteScooter(Scooter scooter) {
     }
     @Override
     public void update(java.util.Observable o, Object arg) {
-        // 1. On vide la grille actuelle
+        // On vide la grille actuelle
         panneauScoot.removeAll();
 
-        // 2. On récupère la nouvelle liste de scooters envoyée par le Parc (après un filtre ou une recherche)
+        //On récupère la nouvelle liste de scooters envoyée par le Parc (après un filtre ou une recherche)
         java.util.Vector<Scooter> listeScooters = (java.util.Vector<Scooter>) arg;
 
-        // 3. On crée une carte pour chaque scooter et on l'ajoute à la grille
+        //On crée une carte pour chaque scooter et on l'ajoute à la grille
         if (listeScooters != null) {
             for (int i = 0; i < listeScooters.size(); i++) {
                 Scooter s = listeScooters.get(i);
