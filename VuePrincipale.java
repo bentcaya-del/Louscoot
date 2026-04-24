@@ -1,12 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-<<<<<<< HEAD
-public class VuePrincipale extends JFrame{   
-=======
-
 public class VuePrincipale extends JFrame implements java.util.Observer{   
->>>>>>> 820754043011592eb8db5e5f6b537fc8da3c60b9
     private JLabel titreApp;
     private JTextField barreRecherche;
     private JButton btnRechercher;
@@ -212,6 +207,8 @@ private JPanel creerCarteScooter(Scooter scooter) {
         JPanel panelInfos = new JPanel(new GridLayout(2, 1));
         panelInfos.setBackground(Color.WHITE);
         panelInfos.add(new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER));
+        panelInfos.add(new JLabel("Marque : " + scooter.getModele().getMarque().getNomMarque()));
+
         
         JLabel labelPrix = new JLabel(scooter.getPrix_jour() + " € / jour", SwingConstants.CENTER);
         labelPrix.setForeground(new Color(0, 150, 0)); // Prix en vert
