@@ -1,7 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class VuePrincipale extends JFrame{   
+
+public class VuePrincipale extends JFrame {   
     private JLabel titreApp;
     private JTextField barreRecherche;
     private JButton btnRechercher;

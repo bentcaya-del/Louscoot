@@ -7,7 +7,7 @@ public class Main1 {
         
         // On ajoute le scooter au Parc
         Scooter s1 = new Scooter("nmax", "Noir", 100.0, 50.0, 40.0, nmax , null);
-        monParc.ajoutScooter(s1);
+        monParc.AjouterScooter(s1);
         
 
         // Créer une instance de la classe VuePrincipale
