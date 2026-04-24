@@ -4,6 +4,7 @@ import javax.swing.*;
 public class VuePrincipale extends JFrame{   
     private JLabel titreApp;
     private JTextField barreRecherche;
+    private JButton btnRechercher;
     private JPanel panneauScoot ;
     private JPanel panelFilters;
     private JButton btnHistorique;
@@ -22,7 +23,6 @@ public class VuePrincipale extends JFrame{
         //titre de l'application
         titreApp = new JLabel("LOUSCOOT - Location de scooters", SwingConstants.CENTER);
         titreApp.setFont(new Font("Arial", Font.BOLD, 30));
-        this.add(titreApp, BorderLayout.NORTH);
         
         //filtres
         panelFilters = new JPanel();
@@ -97,10 +97,7 @@ public class VuePrincipale extends JFrame{
         pCouleur.add(comboCouleur);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
         panelFilters.add(pCouleur);
-        this.add(panelFilters, BorderLayout.EAST);
-
-        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
-        panelFilters.add(pCouleur);
+        
 
         panelFilters.add(Box.createRigidArea(new Dimension(0, 15))); // Grand espace
         JButton btnAppliquer = new JButton("Appliquer les filtres");
@@ -116,6 +113,7 @@ public class VuePrincipale extends JFrame{
         JButton btnToggleFiltres = new JButton("Filtres ◀");
         btnToggleFiltres.setFont(new Font("Arial", Font.BOLD, 14));
         
+        // Action pour afficher/masquer les filtres
         btnToggleFiltres.addActionListener(e -> {
             boolean estVisible = panelFilters.isVisible();
             panelFilters.setVisible(!estVisible);
@@ -124,8 +122,8 @@ public class VuePrincipale extends JFrame{
             } else {
                 btnToggleFiltres.setText("Filtres ▼");
             }
-            this.revalidate();
-            this.repaint();
+            this.revalidate();// Recalcule la mise en page
+            this.repaint();//refresh de la fenêtre pour que les changements soient pris en compte
         });
 
         panelMenuDroit.add(btnToggleFiltres, BorderLayout.NORTH); // Bouton en haut
@@ -134,15 +132,52 @@ public class VuePrincipale extends JFrame{
         // Et on ajoute ce conteneur à droite de la fenêtre principale !
         this.add(panelMenuDroit, BorderLayout.EAST);
 
+        //CRÉATION DU BLOC DU HAUT (Titre + Navigation)
+        JPanel panelHaut = new JPanel();
+        panelHaut.setLayout(new BoxLayout(panelHaut, BoxLayout.Y_AXIS));
 
+        // Ajout du titre
+        titreApp.setAlignmentX(Component.CENTER_ALIGNMENT);
+        panelHaut.add(titreApp);
 
-
-
-
-    
-
-
+        // Ajout de la navigation (Historique, Profil, etc.)
+        JPanel panelNavigation = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        btnHistorique = new JButton("Historique");
+        commande = new JButton("Commandes");
+        btnProfil = new JButton("Mon Profil");
+        contact = new JButton("Contact");
         
+        panelNavigation.add(btnHistorique);
+        panelNavigation.add(commande);
+        panelNavigation.add(btnProfil);
+        panelNavigation.add(contact);        
+        panelHaut.add(panelNavigation);
+
+        // On place ce bloc tout en haut
+        this.add(panelHaut, BorderLayout.NORTH);
+
+       // On regroupe la recherche et les scooters dans un seul panneau
+        JPanel zoneCentrale = new JPanel(new BorderLayout(10, 10));
+
+        //La barre de recherche
+        JPanel panelRecherche = new JPanel(new BorderLayout(5, 5));
+        barreRecherche = new JTextField();
+        btnRechercher = new JButton("Rechercher");
+        panelRecherche.add(barreRecherche, BorderLayout.CENTER);
+        panelRecherche.add(btnRechercher, BorderLayout.EAST);
+        
+        //en haut de la zone centrale
+        zoneCentrale.add(panelRecherche, BorderLayout.NORTH); 
+
+        //Le panneau pour les scooters
+        panneauScoot = new JPanel();
+        panneauScoot.setLayout(new GridLayout(0, 3, 10, 10)); 
+        JScrollPane scrollPane = new JScrollPane(panneauScoot);// Permet d'ajouter une barre de défilement
+        
+        //centre de la zone centrale
+        zoneCentrale.add(scrollPane, BorderLayout.CENTER); 
+        this.add(zoneCentrale, BorderLayout.CENTER);
+
         this.pack();
         this.setVisible(true);
 }
