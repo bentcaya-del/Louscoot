@@ -2,8 +2,6 @@
 
 import java.util.*;
 
-import javax.swing.JPanel;
-
 /**
  * 
  */
@@ -38,12 +36,12 @@ public class Parc extends Observable {
     /**
      * 
      */
-    private Vector<Client> Liste_client;
+    private Vector<Client> Liste_client = new Vector<Client>();
 
     /**
      * 
      */
-    private Vector<Scooter> Liste_scooter;
+    private Vector<Scooter> Liste_scooter = new Vector<Scooter>();
 
     /**
      * 
@@ -236,8 +234,8 @@ public class Parc extends Observable {
                 resultats.add(s);
             }
         }
-         this.setChanged(); // On prévient Java qu'il y a du changement
-        this.notifyObservers(resultats); // On envoie les résultats à la vue !
+        this.setChanged(); // On prévient Java qu'il y a du changement (actualise)
+        this.notifyObservers(resultats); // On envoie les résultats à la vue
     }
 
         //combiner tous tes filtres
@@ -260,7 +258,16 @@ public class Parc extends Observable {
         // --- LA MAGIE DU MVC ---
         this.setChanged(); // On prévient Java qu'il y a du changement
         this.notifyObservers(resultats); // On envoie les résultats à la vue !
-    
+    }
+
+    public Vector <Scooter> AjouterScooter(Scooter s){
+        Vector<Scooter> resultats = new Vector<Scooter>();
+        Liste_scooter.add(s);
+        for (int i = 0; i < Liste_scooter.size(); i++) {
+            Scooter sc = Liste_scooter.get(i);
+            resultats.add(sc);
+        }
+        return resultats;
     }
     
 
