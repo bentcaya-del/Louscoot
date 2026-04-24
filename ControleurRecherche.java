@@ -7,8 +7,8 @@ public class ControleurRecherche implements ActionListener {
     private JTextField champRecherche;
 
     public ControleurRecherche(Parc vmodele, JTextField vchampRecherche) {
-        vmodele = modele;
-        vchampRecherche = champRecherche;
+        modele = vmodele;
+        champRecherche = vchampRecherche;
     }
     @Override
     public void actionPerformed(ActionEvent e) {
