@@ -184,8 +184,85 @@ public class VuePrincipale extends JFrame{
         // On attache l'espion au bouton "Rechercher"
         btnRechercher.addActionListener(ctrlRecherche);
 
+            ControleurFiltre ctrlFiltre = new ControleurFiltre(modele, comboPermis, comboMoto, comboMarque, comboCouleur);
+            btnAppliquer.addActionListener(ctrlFiltre);
+
         this.pack();
         this.setVisible(true);
+}
+private JPanel creerCarteScooter(Scooter scooter) {
+        JPanel carte = new JPanel(new BorderLayout(5, 5));
+        carte.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2)); 
+        carte.setBackground(Color.WHITE);
+
+        // 1. Nom du scooter en haut
+        JLabel labelModele = new JLabel(scooter.getModele().getNom_modele(), SwingConstants.CENTER);
+        labelModele.setFont(new Font("Arial", Font.BOLD, 18));
+        carte.add(labelModele, BorderLayout.NORTH);
+
+        // 2. Infos rapides au centre (Moteur et Prix)
+        JPanel panelInfos = new JPanel(new GridLayout(2, 1));
+        panelInfos.setBackground(Color.WHITE);
+        panelInfos.add(new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER));
+        
+        JLabel labelPrix = new JLabel(scooter.getPrix_jour() + " € / jour", SwingConstants.CENTER);
+        labelPrix.setForeground(new Color(0, 150, 0)); // Prix en vert
+        panelInfos.add(labelPrix);
+        
+        carte.add(panelInfos, BorderLayout.CENTER);
+        // 3. Bouton "Plus de détails" en bas avec son action !
+        JButton btnDetails = new JButton("Plus de détails");
+        btnDetails.addActionListener(e -> {
+            
+            // 1. Création de la nouvelle fenêtre
+            JFrame fenetreDetails = new JFrame("Détails : " + scooter.getModele().getNom_modele());
+            fenetreDetails.setSize(400, 350); // Taille de la fenêtre
+            fenetreDetails.setLocationRelativeTo(this); // Centre la fenêtre par rapport à la principale
+            
+            // TRÈS IMPORTANT : On utilise DISPOSE_ON_CLOSE pour ne fermer QUE cette petite fenêtre. 
+            // Si tu mets EXIT_ON_CLOSE, fermer les détails fermera toute ton application !
+            fenetreDetails.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            fenetreDetails.setLayout(new BorderLayout(15, 15));
+            
+            // 2. Un titre en haut
+            JLabel titreFenetre = new JLabel("Fiche complète", SwingConstants.CENTER);
+            titreFenetre.setFont(new Font("Arial", Font.BOLD, 22));
+            fenetreDetails.add(titreFenetre, BorderLayout.NORTH);
+            
+            // 3. Les informations au centre
+            JPanel panelInfosD = new JPanel(new GridLayout(6, 1, 5, 5));
+            panelInfos.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30)); // Des marges invisibles
+            
+            panelInfosD.add(new JLabel("➤ Marque : " + scooter.getModele().getMarque().getNomMarque()));
+            panelInfosD.add(new JLabel("➤ Modèle : " + scooter.getModele().getNom_modele()));
+            panelInfosD.add(new JLabel("➤ Motorisation : " + scooter.getModele().getMotorisation()));
+            panelInfosD.add(new JLabel("➤ Couleur : " + scooter.getColoris()));
+            panelInfosD.add(new JLabel("➤ Permis requis : " + scooter.getModele().getPermis()));
+            
+            JLabel prixLabel = new JLabel("Prix : " + scooter.getPrix_jour() + " € / jour");
+            prixLabel.setForeground(new Color(0, 150, 0)); // Texte en vert
+            prixLabel.setFont(new Font("Arial", Font.BOLD, 16));
+            panelInfosD.add(prixLabel);
+            
+            fenetreDetails.add(panelInfosD, BorderLayout.CENTER);
+            
+            // 4. Boutons en bas (Fermer, et la place pour "Louer" plus tard)
+            JPanel panelBas = new JPanel();
+            JButton btnFermer = new JButton("Fermer");
+            
+            // L'action du bouton "Fermer" détruit juste cette fenêtre
+            btnFermer.addActionListener(event -> fenetreDetails.dispose()); 
+            
+            panelBas.add(btnFermer);
+            fenetreDetails.add(panelBas, BorderLayout.SOUTH);
+            
+            // 5. On affiche la fenêtre !
+            fenetreDetails.setVisible(true);
+        });
+        
+        carte.add(btnDetails, BorderLayout.SOUTH);
+
+        return carte;
 }
 }
 
