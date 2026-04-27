@@ -15,40 +15,50 @@ public class ControleurLocation implements ActionListener {
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        // 1. On lit les informations tapées par l'utilisateur dans la Vue
-            String nom = vue.txtNom.getText();
-            String prenom = vue.txtPrenom.getText();
-            String tel = vue.txtNum.getText();
-            String email = vue.txtMail.getText();
-            String dateDebut = vue.txtDateDebut.getText();
-            String dateFin = vue.txtDateFin.getText();
-            int nbJours = Integer.parseInt(vue.txtNbJours.getText());
+public void actionPerformed(ActionEvent e) {
+    System.out.println("Bouton cliqué !"); // Pour vérifier que le contrôleur réagit
 
+    try {
+        //Récupération des textes
+        String nom = vue.txtNom.getText();
+        String prenom = vue.txtPrenom.getText();
+        String tel = vue.txtNum.getText();
+        String email = vue.txtMail.getText();
+        String dateDebut = vue.txtDateDebut.getText();
+        String dateFin = vue.txtDateFin.getText();
         
+        // Risque d'erreur ici si c'est vide
+        int nbJours = Integer.parseInt(vue.txtNbJours.getText());
+
+        //Vérification de sécurité
         if(nom.isEmpty() || prenom.isEmpty()) {
-            JOptionPane.showMessageDialog(vue, "Veuillez remplir tous les champs !", "Erreur", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(vue, "Le nom et le prénom sont obligatoires !", "Erreur", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-        // A. Créer le client avec TON constructeur (ajuste les paramètres si besoin)
-        Client nouveauClient = new Client(nom, prenom,tel,email); 
-        
+
+        System.out.println("Données lues : " + nom + " " + prenom);
+
+        //Création des objets
+        Client nouveauClient = new Client(nom, prenom, tel, email); 
         Employe employeAccueil = new Employe("Admin", "Accueil", "0000", 1500.0, "admin@louscoot.fr", "Gérant", modele);
-            modele.ajoutEmploye(employeAccueil);        //    public Location(String vdate_debut, String vdate_fin, int vnombre_jour,Scooter vscooter, EtatDesLieuxFinal vetatDesLieux, Employe vemploye, Client vclient)
+        modele.ajoutEmploye(employeAccueil);        
         
-            employeAccueil.creerContrat(dateDebut, dateFin, nbJours, scooter, nouveauClient);
+        // Cette ligne appelle LocalDate.parse() -> Format AAAA-MM-JJ obligatoire !
+        employeAccueil.creerContrat(dateDebut, dateFin, nbJours, scooter, nouveauClient);
         
-        // D. (Optionnel) Changer le statut du scooter pour dire qu'il n'est plus dispo
+        //Mise à jour du statut
         scooter.setEstDisponible(false); 
-        
-        // =========================================================
-        
-    JOptionPane.showMessageDialog(vue, "Location validée avec succès pour " + prenom + " " + nom + " !");
-            vue.dispose();
+
+        //Succès
+        JOptionPane.showMessageDialog(vue, "Location validée avec succès !");
+        vue.dispose();
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(vue, "Le nombre de jours doit être un chiffre !", "Erreur", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception ex) {
+        // Affiche l'erreur réelle dans la console pour t'aider
+        ex.printStackTrace(); 
+        JOptionPane.showMessageDialog(vue, "Erreur : " + ex.getMessage() + "\n(Vérifiez le format date: AAAA-MM-JJ)", "Erreur", JOptionPane.ERROR_MESSAGE);
     }
-        // } catch (Exception ex) {
-        //     // Si l'utilisateur a mal tapé la date ou le nombre de jours
-        //     JOptionPane.showMessageDialog(vue, "Erreur dans le format des données (Vérifiez les dates et le nombre de jours).", "Erreur", JOptionPane.ERROR_MESSAGE);
-        // }
+}
 }

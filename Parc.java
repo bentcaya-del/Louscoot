@@ -46,8 +46,7 @@ public class Parc extends Observable {
     /**
      * 
      */
-    private Vector<Employe> Liste_employe;
-
+private Vector<Employe> Liste_employe = new Vector<Employe>();
     public Parc(String vnom, String vadresse, String vville,String vnumero_tel) {
         nom = vnom;
         adresse = vadresse;
