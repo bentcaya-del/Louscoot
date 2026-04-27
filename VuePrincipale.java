@@ -11,7 +11,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JButton btnProfil;
     private JButton commande;
     private JButton contact; 
-    private JButton retour;
     private Parc modele;
     private JComboBox<String> comboMarque;
     private JComboBox<String> comboMoto;
@@ -20,7 +19,9 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JRadioButton radioCroissant;
     private JRadioButton radioDecroissant;
     private ButtonGroup groupePrix;
-
+    //private Client clientEnCours = null; // Il n'y a personne de connecté au démarrage
+    private Client clientEnCours = new Client("Dupont", "Jean", "0601020304", "jean.dupont@email.com");
+    
     public VuePrincipale(Parc modele) {
         this.modele = modele;
         modele.addObserver(this);
@@ -164,7 +165,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         commande = new JButton("Commandes");
         btnProfil = new JButton("Mon Profil");
         contact = new JButton("Contact");
-        retour = new JButton("Retour");
 
         
         panelNavigation.add(btnHistorique);
@@ -172,12 +172,17 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelNavigation.add(btnProfil);
         panelNavigation.add(contact);        
         panelHaut.add(panelNavigation);
-        panelNavigation.add(retour);
 
-        retour.addActionListener(e -> {
-            FenetreRetour fenetreRetour = new FenetreRetour();
-            fenetreRetour.setVisible(true);
-        });
+
+        btnProfil.addActionListener(e -> {
+    // Remplacer 'clientEnCours' par la variable que tu utilises pour stocker le client actuel
+    if (clientEnCours != null) {
+        new FenetreProfil(clientEnCours);
+    } else {
+        JOptionPane.showMessageDialog(this, "Aucun utilisateur connecté.", "Erreur", JOptionPane.WARNING_MESSAGE);
+    }
+});
+
 
         // On place ce bloc tout en haut
         this.add(panelHaut, BorderLayout.NORTH);
@@ -243,7 +248,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         labelModele.setFont(new Font("Arial", Font.BOLD, 18));
         carte.add(labelModele, BorderLayout.NORTH);
 
-        // 2. Infos rapides au centre (Moteur et Prix)
+        //Infos au centre
         JPanel panelInfos = new JPanel(new GridLayout(4, 1,0,5));
         panelInfos.setBackground(Color.WHITE);
         panelInfos.add(new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER));
@@ -255,11 +260,16 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelInfos.add(labelPrix);
         
         carte.add(panelInfos, BorderLayout.CENTER);
-        // 3. Bouton "Plus de détails" en bas avec son action !
+        //Bouton "Plus de détails" en bas avec son action !
         JButton btnDetails = new JButton("Plus de détails");
         btnDetails.addActionListener(e -> {
+<<<<<<< HEAD
             FenetreDetails fenetre = new FenetreDetails(modele, scooter);
              fenetre.setVisible(true);
+=======
+            FenetreDetails fenetre = new FenetreDetails(modele,scooter);
+            fenetre.setVisible(true);
+>>>>>>> 0215f1bf17b9879fee4bec7defab84cd63fb42b4
         });
 
 

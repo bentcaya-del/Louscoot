@@ -43,6 +43,26 @@ public class FenetreDetails extends JFrame {
         panelBas.add(btnLouer);
         panelBas.add(btnFermer);
         add(panelBas, BorderLayout.SOUTH);
+
+        // --- LE BOUTON RETOUR ---
+        JButton btnRetour = new JButton("Gérer le retour");
+        btnRetour.setBackground(new Color(220, 50, 50));
+        btnRetour.setForeground(Color.WHITE);
         
+        btnRetour.addActionListener(e -> {
+            //On vérifie que le scooter a bien été loué au moins une fois
+            if (!scooter.getListe_location().isEmpty()) {
+                // recupere la dernière location du scooter 
+                Location derniereLoc = scooter.getListe_location().lastElement();
+                FenetreRetour fenRet = new FenetreRetour(modele, derniereLoc);
+                fenRet.setVisible(true);
+                dispose(); 
+            } else {
+                JOptionPane.showMessageDialog(this, "Ce scooter n'a aucune location en cours.", "Erreur", JOptionPane.WARNING_MESSAGE);
+            }
+        });
+        
+        panelBas.add(btnRetour);
     }
+    
 }

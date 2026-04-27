@@ -9,7 +9,7 @@ public class FenetreLouer extends JFrame {
     public JTextField txtNum = new JTextField();
     public JTextField txtMail = new JTextField();
 
-    public JTextField txtDateDebut = new JTextField(""); // Format AAAA-MM-JJ obligatoire
+    public JTextField txtDateDebut = new JTextField(""); 
     public JTextField txtDateFin = new JTextField("");
     public JTextField txtNbJours = new JTextField("");
 
