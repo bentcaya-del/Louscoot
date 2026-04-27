@@ -151,6 +151,9 @@ public class Client {
         return this.Liste_location;
     }
     
-    
+    @Override
+    public String toString() {
+    return this.prenom + " " + this.nom;
+}
 
 }

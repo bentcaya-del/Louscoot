@@ -17,23 +17,23 @@ public class FenetreLouer extends JFrame {
 
     public FenetreLouer(Parc modele, Scooter scooter) {
         setTitle("Location : " + scooter.getModele().getNom_modele());
-        setSize(350, 200);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         JPanel panelFormulaire = new JPanel(new GridLayout(2, 2, 10, 10));
         panelFormulaire.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         
-        panelFormulaire.add(new JLabel("Nom du client :"));
+        panelFormulaire.add(new JLabel("Nom:"));
         panelFormulaire.add(txtNom);
         
-        panelFormulaire.add(new JLabel("Prénom du client :"));
+        panelFormulaire.add(new JLabel("Prénom:"));
         panelFormulaire.add(txtPrenom);
 
-        panelFormulaire.add(new JLabel("Numéro de telephone du client :"));
+        panelFormulaire.add(new JLabel("Numéro tel :"));
         panelFormulaire.add(txtNum);
         
-        panelFormulaire.add(new JLabel("Email du client :"));
+        panelFormulaire.add(new JLabel("Email :"));
         panelFormulaire.add(txtMail);
 
         panelFormulaire.add(new JLabel("Date début (AAAA-MM-JJ) :"));

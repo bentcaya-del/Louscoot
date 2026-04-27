@@ -224,6 +224,11 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
         this.pack();
         this.setVisible(true);
+
+        btnHistorique.addActionListener(e -> {
+            FenetreHistorique fenHisto = new FenetreHistorique(modele);
+            fenHisto.setVisible(true);
+        });
     }
 
     
@@ -239,7 +244,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         JPanel panelInfos = new JPanel(new GridLayout(4, 1,0,5));
         panelInfos.setBackground(Color.WHITE);
         panelInfos.add(new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER));
-        panelInfos.add(new JLabel("Marque : " + scooter.getModele().getMarque().getNomMarque()));
+        panelInfos.add(new JLabel("Marque : " + scooter.getModele().getMarque().getNomMarque(),SwingConstants.CENTER));
         panelInfos.add(new JLabel("Couleur : " + scooter.getColoris(), SwingConstants.CENTER));
         
         JLabel labelPrix = new JLabel(scooter.getPrix_jour() + " € / jour", SwingConstants.CENTER);
@@ -250,9 +255,11 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         // 3. Bouton "Plus de détails" en bas avec son action !
         JButton btnDetails = new JButton("Plus de détails");
         btnDetails.addActionListener(e -> {
-            FenetreDetails fenetre = new FenetreDetails(scooter);
+            FenetreDetails fenetre = new FenetreDetails(modele, scooter);
              fenetre.setVisible(true);
         });
+
+
         
         carte.add(btnDetails, BorderLayout.SOUTH);
 
