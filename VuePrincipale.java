@@ -263,13 +263,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //Bouton "Plus de détails" en bas avec son action !
         JButton btnDetails = new JButton("Plus de détails");
         btnDetails.addActionListener(e -> {
-<<<<<<< HEAD
             FenetreDetails fenetre = new FenetreDetails(modele, scooter);
-             fenetre.setVisible(true);
-=======
-            FenetreDetails fenetre = new FenetreDetails(modele,scooter);
             fenetre.setVisible(true);
->>>>>>> 0215f1bf17b9879fee4bec7defab84cd63fb42b4
         });
 
 
