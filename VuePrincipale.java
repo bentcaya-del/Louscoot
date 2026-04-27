@@ -11,7 +11,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JButton btnProfil;
     private JButton commande;
     private JButton contact; 
-    private JButton retour;
     private Parc modele;
     private JComboBox<String> comboMarque;
     private JComboBox<String> comboMoto;
@@ -164,7 +163,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         commande = new JButton("Commandes");
         btnProfil = new JButton("Mon Profil");
         contact = new JButton("Contact");
-        retour = new JButton("Retour");
 
         
         panelNavigation.add(btnHistorique);
@@ -172,12 +170,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelNavigation.add(btnProfil);
         panelNavigation.add(contact);        
         panelHaut.add(panelNavigation);
-        panelNavigation.add(retour);
 
-        retour.addActionListener(e -> {
-            FenetreRetour fenetreRetour = new FenetreRetour();
-            fenetreRetour.setVisible(true);
-        });
 
         // On place ce bloc tout en haut
         this.add(panelHaut, BorderLayout.NORTH);
