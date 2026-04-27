@@ -227,6 +227,11 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
             FenetreHistorique fenHisto = new FenetreHistorique(modele);
             fenHisto.setVisible(true);
         });
+
+        contact.addActionListener(e -> {
+            FenetreContact fenContact = new FenetreContact(modele);
+            fenContact.setVisible(true);
+});
     }
 
     
