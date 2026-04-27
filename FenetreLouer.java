@@ -9,20 +9,23 @@ public class FenetreLouer extends JFrame {
     public JTextField txtNum = new JTextField();
     public JTextField txtMail = new JTextField();
 
-    public JTextField txtDateDebut = new JTextField("2026-04-24"); // Format AAAA-MM-JJ obligatoire
-    public JTextField txtDateFin = new JTextField("2026-04-26");
-    public JTextField txtNbJours = new JTextField("2");
+    public JTextField txtDateDebut = new JTextField(""); // Format AAAA-MM-JJ obligatoire
+    public JTextField txtDateFin = new JTextField("");
+    public JTextField txtNbJours = new JTextField("");
 
     public JButton btnValider = new JButton("Valider la location");
 
     public FenetreLouer(Parc modele, Scooter scooter) {
         setTitle("Location : " + scooter.getModele().getNom_modele());
+
         setSize(800, 600);
+
+        setSize(450, 450);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        JPanel panelFormulaire = new JPanel(new GridLayout(2, 2, 10, 10));
-        panelFormulaire.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        JPanel panelFormulaire = new JPanel(new GridLayout(7, 2, 10, 15));
+        panelFormulaire.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
         
         panelFormulaire.add(new JLabel("Nom:"));
         panelFormulaire.add(txtNom);

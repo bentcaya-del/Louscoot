@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.util.Vector;
-
 import javax.swing.*;
 
 public class VuePrincipale extends JFrame implements java.util.Observer{   
@@ -282,7 +280,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
             }
         }
 
-        // 4. On force la fenêtre à se redessiner
+        //On force la fenêtre à se redessiner
         panneauScoot.revalidate();
         panneauScoot.repaint();
     }
@@ -299,13 +297,13 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         comboPermis.removeAllItems();
         comboCouleur.removeAllItems();
 
-        // On demande au Parc toutes les listes à jour, et on remplit !
+        // On demande au Parc toutes les listes à jour
         for (String m : modele.getMarquesUniques()) comboMarque.addItem(m);
         for (String m : modele.getMotorisationsUniques()) comboMoto.addItem(m);
         for (String p : modele.getPermisUniques()) comboPermis.addItem(p);
         for (String c : modele.getCouleursUniques()) comboCouleur.addItem(c);
 
-        // 4. On remet la sélection d'avant (ou "Tout" si c'est le premier lancement)
+        //On remet la sélection d'avant
         if (marqueSel != null) comboMarque.setSelectedItem(marqueSel);
         if (motoSel != null) comboMoto.setSelectedItem(motoSel);
         if (permisSel != null) comboPermis.setSelectedItem(permisSel);
