@@ -1,6 +1,9 @@
+package vue;
+import controleur.*;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import modele.*;
 
 
 public class FenetreHistorique extends JFrame {

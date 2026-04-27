@@ -1,5 +1,8 @@
+package vue;
+import controleur.*;
 import java.awt.*;
 import javax.swing.*;
+import modele.*;
 
 public class VuePrincipale extends JFrame implements java.util.Observer{   
     private JLabel titreApp;
@@ -148,10 +151,9 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelMenuDroit.add(btnToggleFiltres, BorderLayout.NORTH); // Bouton en haut
         panelMenuDroit.add(panelFilters, BorderLayout.CENTER);    // Filtres en dessous
 
-        // Et on ajoute ce conteneur à droite de la fenêtre principale !
         this.add(panelMenuDroit, BorderLayout.EAST);
 
-        //CRÉATION DU BLOC DU HAUT (Titre + Navigation)
+        //CRÉATION DU BLOC DU HAUT 
         JPanel panelHaut = new JPanel();
         panelHaut.setLayout(new BoxLayout(panelHaut, BoxLayout.Y_AXIS));
 
@@ -279,7 +281,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         // On vide la grille actuelle
         panneauScoot.removeAll();
 
-        //On récupère la nouvelle liste de scooters envoyée par le Parc (après un filtre ou une recherche)
+        //On récupère la nouvelle liste de scooters envoyée par le Parc
         java.util.Vector<Scooter> listeScooters = (java.util.Vector<Scooter>) arg;
 
         //On crée une carte pour chaque scooter et on l'ajoute à la grille
