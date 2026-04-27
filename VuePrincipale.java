@@ -19,7 +19,9 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JRadioButton radioCroissant;
     private JRadioButton radioDecroissant;
     private ButtonGroup groupePrix;
-
+    //private Client clientEnCours = null; // Il n'y a personne de connecté au démarrage
+    private Client clientEnCours = new Client("Dupont", "Jean", "0601020304", "jean.dupont@email.com");
+    
     public VuePrincipale(Parc modele) {
         this.modele = modele;
         modele.addObserver(this);
@@ -172,6 +174,16 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelHaut.add(panelNavigation);
 
 
+        btnProfil.addActionListener(e -> {
+    // Remplacer 'clientEnCours' par la variable que tu utilises pour stocker le client actuel
+    if (clientEnCours != null) {
+        new FenetreProfil(clientEnCours);
+    } else {
+        JOptionPane.showMessageDialog(this, "Aucun utilisateur connecté.", "Erreur", JOptionPane.WARNING_MESSAGE);
+    }
+});
+
+
         // On place ce bloc tout en haut
         this.add(panelHaut, BorderLayout.NORTH);
 
@@ -226,7 +238,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         labelModele.setFont(new Font("Arial", Font.BOLD, 18));
         carte.add(labelModele, BorderLayout.NORTH);
 
-        // 2. Infos rapides au centre (Moteur et Prix)
+        //Infos au centre
         JPanel panelInfos = new JPanel(new GridLayout(4, 1,0,5));
         panelInfos.setBackground(Color.WHITE);
         panelInfos.add(new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER));
@@ -238,11 +250,11 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelInfos.add(labelPrix);
         
         carte.add(panelInfos, BorderLayout.CENTER);
-        // 3. Bouton "Plus de détails" en bas avec son action !
+        //Bouton "Plus de détails" en bas avec son action !
         JButton btnDetails = new JButton("Plus de détails");
         btnDetails.addActionListener(e -> {
             FenetreDetails fenetre = new FenetreDetails(modele,scooter);
-             fenetre.setVisible(true);
+            fenetre.setVisible(true);
         });
         
         carte.add(btnDetails, BorderLayout.SOUTH);
