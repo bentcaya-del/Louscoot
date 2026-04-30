@@ -42,17 +42,34 @@ public void actionPerformed(ActionEvent e) {
         System.out.println("Données lues : " + nom + " " + prenom);
 
         //Création des objets
-        Client nouveauClient = new Client(nom, prenom, tel, email); 
+        Client clientActuel = null;
+        
+        for (int i = 0; i < modele.getListe_client().size(); i++) {
+            Client c = modele.getListe_client().get(i);
+            // On vérifie si le nom et prénom correspondent
+            if (c.getNom().equalsIgnoreCase(nom) && c.getPrenom().equalsIgnoreCase(prenom)) {
+                clientActuel = c;
+                break; //On a trouvé le client on stop
+            }
+        }
+        
+        // CLient pas trouvé = on le crée et on l'ajoute au Parc
+        if (clientActuel == null) {
+            clientActuel = new Client(nom, prenom, tel, email);
+            modele.ajoutClient(clientActuel);
+            System.out.println("Nouveau client ajouté au parc : " + nom);
+        } else {
+            System.out.println("Client existant retrouvé : " + nom);
+        }
+
         Employe employeAccueil = new Employe("Admin", "Accueil", "0000", 1500.0, "admin@louscoot.fr", "Gérant", modele);
         modele.ajoutEmploye(employeAccueil);        
         
-        // Cette ligne appelle LocalDate.parse() -> Format AAAA-MM-JJ obligatoire !
-        employeAccueil.creerContrat(dateDebut, dateFin, nbJours, scooter, nouveauClient);
+        employeAccueil.creerContrat(dateDebut, dateFin, nbJours, scooter, clientActuel);     
         
-        //Mise à jour du statut
         scooter.setEstDisponible(false); 
 
-        //Succès
+
         JOptionPane.showMessageDialog(vue, "Location validée avec succès !");
         vue.dispose();
 
