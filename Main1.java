@@ -1,3 +1,6 @@
+import modele.*;
+import vue.*;
+
 public class Main1 {
     public static void main(String[] args) {
         Parc monParc = new Parc();
@@ -12,7 +15,6 @@ public class Main1 {
         Modele ce04 = new Modele("CE-04", "Electrique", "Moderne", "LED", "2023", Type_permis.A, bmw);
         Modele pcx = new Modele("PCX", "Essence", "Classique", "Halogene", "2021", Type_permis.A1, honda);
 
-      
         Scooter s1 = new Scooter("AB-123-CD", "Noir", 100.0, 500.0, 40.0, nmax, null);
         monParc.AjouterScooter(s1);
 

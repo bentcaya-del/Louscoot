@@ -1,4 +1,5 @@
 import java.util.Vector;
+import modele.*;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,5 +1,8 @@
+package vue;
+import controleur.*;
 import java.awt.*;
 import javax.swing.*;
+import modele.*;
 
 public class FenetreLouer extends JFrame {
     

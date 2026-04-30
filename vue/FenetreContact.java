@@ -1,3 +1,5 @@
+package vue;
+import modele.*;
 import java.awt.*;
 import javax.swing.*;
 

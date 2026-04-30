@@ -1,3 +1,6 @@
+package controleur;
+import modele.*; // Pour utiliser le modèle
+import vue.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JTextField;
