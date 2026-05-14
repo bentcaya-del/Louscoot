@@ -13,7 +13,10 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JButton btnHistorique;
     private JButton btnProfil;
     private JButton commande;
-    private JButton contact; 
+    private JButton contact;
+    private JButton btnAjoutScooter;
+    private JButton btnAjoutEmploye;
+    private JButton btnBasculer;
     private Parc modele;
     private JComboBox<String> comboMarque;
     private JComboBox<String> comboMoto;
@@ -22,10 +25,11 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JRadioButton radioCroissant;
     private JRadioButton radioDecroissant;
     private ButtonGroup groupePrix;
-    //private Client clientEnCours = null; // Il n'y a personne de connecté au démarrage
-    private Client clientEnCours = new Client("Dupont", "Jean", "0601020304", "jean.dupont@email.com");
+    private boolean estGerant; // Permet de savoir si on affiche les fonctionnalités de gérant ou pas
+    private Client clientEnCours = null; // Il n'y a personne de connecté au démarrage
+    // private Client clientEnCours = new Client("Dupont", "Jean", "0601020304", "jean.dupont@email.com");
     
-    public VuePrincipale(Parc modele) {
+    public VuePrincipale(Parc modele, boolean estGerant) {
         this.modele = modele;
         modele.addObserver(this);
         this.setTitle("LOUSCOOT - Location de scooters");
@@ -33,6 +37,10 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout(15,15));
+        this.modele = modele;
+        this.estGerant = estGerant;
+
+        
         
         //titre de l'application
         titreApp = new JLabel("LOUSCOOT - Location de scooters", SwingConstants.CENTER);
@@ -59,6 +67,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         radioCroissant.addActionListener(e -> modele.trierParPrix(true));
         radioDecroissant.addActionListener(e -> modele.trierParPrix(false));
 
+       
+       
         // box pour types de permis
         JPanel panelPermis = new JPanel();
         panelPermis.setLayout(new BoxLayout(panelPermis, BoxLayout.Y_AXIS));
@@ -162,17 +172,43 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelHaut.add(titreApp);
 
         // Ajout de la navigation (Historique, Profil, etc.)
-        JPanel panelNavigation = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        JPanel panelNavigation = new JPanel(new FlowLayout(FlowLayout.CENTER,10,0));
         btnHistorique = new JButton("Historique");
         commande = new JButton("Commandes");
         btnProfil = new JButton("Mon Profil");
         contact = new JButton("Contact");
+        btnAjoutScooter = new JButton("Ajouter un Scooter");
+        btnAjoutEmploye = new JButton("Ajouter un Employé");
 
+        String texteBouton = estGerant ? "Passer en mode Client" : "Passer en mode Gérant";
+        btnBasculer = new JButton(texteBouton);
+        btnBasculer.setBackground(new Color(255, 140, 0));
+        btnBasculer.setForeground(Color.WHITE);
+
+        btnAjoutEmploye.addActionListener(e -> {
+            new FenetreAjoutEmploye(modele).setVisible(true);
+        }); 
         
-        panelNavigation.add(btnHistorique);
-        panelNavigation.add(commande);
-        panelNavigation.add(btnProfil);
-        panelNavigation.add(contact);        
+        btnBasculer.addActionListener(e -> {
+            this.dispose(); // Ferme la fenêtre actuelle
+            new VuePrincipale(modele, !estGerant); // Ouvre la nouvelle avec le booléen inversé
+        });
+
+        if (estGerant) {
+            // Le Gérant voit ça :
+            panelNavigation.add(btnAjoutScooter);
+            panelNavigation.add(btnAjoutEmploye);
+            panelNavigation.add(btnHistorique);
+        } else {
+            // Le Client voit ça :
+            panelNavigation.add(commande);
+            panelNavigation.add(btnProfil);
+            panelNavigation.add(contact);
+        }
+
+        panelNavigation.add(Box.createRigidArea(new Dimension(30, 0)));
+        panelNavigation.add(btnBasculer);
+        
         panelHaut.add(panelNavigation);
 
 
@@ -270,10 +306,9 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //Bouton "Plus de détails" en bas avec son action !
         JButton btnDetails = new JButton("Plus de détails");
         btnDetails.addActionListener(e -> {
-
-       FenetreDetails fenetre = new FenetreDetails(modele, scooter);
-             fenetre.setVisible(true);
-
+            // On envoie le booléen estGerant à la page de détails !
+            FenetreDetails fenetre = new FenetreDetails(modele, scooter, estGerant);
+            fenetre.setVisible(true);
         });
 
 

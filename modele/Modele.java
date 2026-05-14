@@ -7,11 +7,7 @@ import java.util.*;
  */
 public class Modele {
 
-    /**
-     * Default constructor
-     */
-    public Modele() {
-    }
+   
 
     /*
      * 

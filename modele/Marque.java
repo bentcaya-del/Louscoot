@@ -10,9 +10,7 @@ public class Marque {
     /**
      * Default constructor
      */
-    public Marque() {
-    }
-
+    
     /**
      * 
      */

@@ -5,11 +5,7 @@ package modele;
  */
 public class Options {
 
-    /**
-     * Default constructor
-     */
-    public Options() {
-    }
+   
 
     /**
      * 

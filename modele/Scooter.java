@@ -8,12 +8,7 @@ import java.util.*;
  */
 public class Scooter {
 
-    /**
-     * Default constructor
-     */
-    public Scooter() {
-    }
-
+   
     /**
      * 
      */

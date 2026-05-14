@@ -10,10 +10,7 @@ public class Location {
 
     /**
      * Default constructor
-     */
-    public Location() {
-    }
-
+    
     /**
      * 
      */

@@ -7,12 +7,7 @@ import java.util.*;
  */
 public class Parc extends Observable {
 
-    /**
-     * Default constructor
-     */
-    public Parc() {
-    }
-
+    
     /**
      * 
      */

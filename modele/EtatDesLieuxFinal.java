@@ -6,10 +6,7 @@ public class EtatDesLieuxFinal {
 
     /**
      * Default constructor
-     */
-    public EtatDesLieuxFinal() {
-    }
-
+   
     /**
      * 
      */

@@ -3,7 +3,7 @@ import vue.*;
 
 public class Main1 {
     public static void main(String[] args) {
-        Parc monParc = new Parc();
+        Parc monParc = new Parc("LouScoot", "10 Rue de la Moto", "Paris", "0102030405");
         
         
         Marque yam = new Marque("Yamaha", "Japon");
@@ -28,6 +28,6 @@ public class Main1 {
         monParc.AjouterScooter(s4);
         
 
-        VuePrincipale vue = new VuePrincipale(monParc);
+        FenetreAccueil vue = new FenetreAccueil(monParc);
     }
 }

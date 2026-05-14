@@ -7,11 +7,7 @@ import java.util.*;
  */
 public class Employe {
 
-    /**
-     * Default constructor
-     */
-    public Employe() {
-    }
+   
 
     /*
      * 

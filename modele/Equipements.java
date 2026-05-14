@@ -7,12 +7,7 @@ import java.util.*;
  */
 public class Equipements {
 
-    /**
-     * Default constructor
-     */
-    public Equipements() {
-    }
-
+  
     /**
      * 
      */
