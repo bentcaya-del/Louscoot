@@ -1,9 +1,9 @@
 package controleur;
-import modele.*; // Pour utiliser le modèle
-import vue.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent; // Pour utiliser le modèle
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import modele.*;
+import vue.*;
 
 public class ControleurLocation implements ActionListener {
     
