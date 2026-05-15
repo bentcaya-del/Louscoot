@@ -230,6 +230,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         styliserBouton(contact, grisFonce, Color.WHITE);
         styliserBouton(btnAjoutScooter, grisFonce, Color.WHITE);
         styliserBouton(btnAjoutEmploye, grisFonce, Color.WHITE);
+        styliserBouton(btnCataMarque, grisFonce, Color.WHITE);
+        styliserBouton(btnCataModele, grisFonce, Color.WHITE);
         styliserBouton(btnBasculer, new Color(255, 140, 0), Color.WHITE); 
         
         // On peut aussi styliser les boutons de recherche et filtres !
