@@ -60,7 +60,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         titreApp.setFont(new Font("Arial", Font.BOLD, 30));
         titreApp.setForeground(Color.WHITE);
         
-// --- FILTRES ---
+// Filtre
         panelFilters = new JPanel();
         panelFilters.setLayout(new BoxLayout(panelFilters, BoxLayout.Y_AXIS));
         // Bordure blanche pour le panneau principal

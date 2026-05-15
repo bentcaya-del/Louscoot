@@ -1,5 +1,6 @@
 package modele;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -249,7 +250,7 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
     }
 
         //combiner tous tes filtres
-    public void appliquerFiltresMultiples(String marqueReq, String permisReq, String motoReq, String couleurReq) {
+    public void appliquerFiltresMultiples(String marqueReq, String permisReq, String motoReq, String couleurReq, String dateDebutRecherche, String dateFinRecherche) {
         Vector<Scooter> resultats = new Vector<Scooter>();
 
         for (int i = 0; i < Liste_scooter.size(); i++) {
@@ -260,14 +261,17 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
             boolean okPermis = permisReq.equals("Tout") || s.getModele().getPermis().toString().equalsIgnoreCase(permisReq);
             boolean okMoto = motoReq.equals("Tout") || s.getModele().getMotorisation().equalsIgnoreCase(motoReq);
             boolean okCouleur = couleurReq.equals("Tout") || s.getColoris().equalsIgnoreCase(couleurReq);
+            boolean okDates = true;
+            if (dateDebutRecherche != null && dateFinRecherche != null) {
+            okDates = s.estDIsponibleAuxDates(dateDebutRecherche, dateFinRecherche);
+        }
             // Si le scooter respecte TOUS les choix, on le garde
             if (okMarque && okPermis && okMoto && okCouleur) {
                 resultats.add(s);
             }
         }
-        // --- LA MAGIE DU MVC ---
         this.setChanged(); // On prévient Java qu'il y a du changement
-        this.notifyObservers(resultats); // On envoie les résultats à la vue !
+        this.notifyObservers(resultats); // On envoie les résultats à la vue
     }
 
     public Vector <Scooter> AjouterScooter(Scooter s){
