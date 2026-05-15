@@ -17,6 +17,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JButton btnAjoutScooter;
     private JButton btnAjoutEmploye;
     private JButton btnBasculer;
+    private JButton btnCataMarque;
+    private JButton btnCataModele;
     private Parc modele;
     private JComboBox<String> comboMarque;
     private JComboBox<String> comboMoto;
@@ -35,7 +37,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         this.setTitle("LOUSCOOT - Location de scooters");
         this.setPreferredSize(new Dimension(1000 ,700));
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout(15,15));
         this.modele = modele;
         this.estGerant = estGerant;
@@ -179,6 +180,9 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         contact = new JButton("Contact");
         btnAjoutScooter = new JButton("Ajouter un Scooter");
         btnAjoutEmploye = new JButton("Ajouter un Employé");
+        btnCataMarque = new JButton("Nouv. Marque");
+        btnCataModele = new JButton("Nouv. Modèle");
+
 
         String texteBouton = estGerant ? "Passer en mode Client" : "Passer en mode Gérant";
         btnBasculer = new JButton(texteBouton);
@@ -188,10 +192,22 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         btnAjoutEmploye.addActionListener(e -> {
             new FenetreAjoutEmploye(modele).setVisible(true);
         }); 
-        
+
+        btnCataMarque.addActionListener(e -> {
+            new FenetreAjoutMarque(modele).setVisible(true);
+        });
+
+        btnCataModele.addActionListener(e -> {
+            new FenetreAjoutModele(modele).setVisible(true);
+        });
+
         btnBasculer.addActionListener(e -> {
             this.dispose(); // Ferme la fenêtre actuelle
             new VuePrincipale(modele, !estGerant); // Ouvre la nouvelle avec le booléen inversé
+        });
+
+        btnAjoutScooter.addActionListener(e -> {
+            new FenetreAjoutScooter(modele).setVisible(true);
         });
 
         if (estGerant) {
@@ -199,6 +215,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
             panelNavigation.add(btnAjoutScooter);
             panelNavigation.add(btnAjoutEmploye);
             panelNavigation.add(btnHistorique);
+            panelNavigation.add(btnCataMarque);
+            panelNavigation.add(btnCataModele);
         } else {
             // Le Client voit ça :
             panelNavigation.add(commande);
@@ -265,6 +283,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
         this.pack();
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
 
         btnHistorique.addActionListener(e -> {
             FenetreHistorique fenHisto = new FenetreHistorique(modele);

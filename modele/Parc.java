@@ -37,6 +37,14 @@ public class Parc extends Observable {
      * 
      */
     private Vector<Scooter> Liste_scooter = new Vector<Scooter>();
+    
+    
+    
+    private Vector<Marque> catalogueMarques = new Vector<>();
+    
+    
+    
+    private Vector<Modele> catalogueModeles = new Vector<>();
 
     /**
      * 
@@ -104,6 +112,14 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
 
     public Vector<Scooter> getListe_scooter() {
         return Liste_scooter;
+    }
+
+    public Vector<Marque> getCatalogueMarques() { 
+        return catalogueMarques; 
+    }
+    
+    public Vector<Modele> getCatalogueModeles() { 
+        return catalogueModeles; 
     }
 
 
@@ -330,6 +346,13 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
         this.notifyObservers(Liste_scooter);
     }
     
+    public void ajouterMarque(Marque m) { 
+        catalogueMarques.add(m); 
+    }
+    
+    public void ajouterModele(Modele mod) { 
+        catalogueModeles.add(mod); 
+    }
 
 
 
