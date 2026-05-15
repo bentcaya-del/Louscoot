@@ -3,7 +3,6 @@ import controleur.*;
 import java.awt.*;
 import javax.swing.*;
 import modele.*;
-
 public class VuePrincipale extends JFrame implements java.util.Observer{   
     private JLabel titreApp;
     private JTextField barreRecherche;
@@ -41,108 +40,144 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         this.modele = modele;
         this.estGerant = estGerant;
 
+        JPanel backgroundPanel = new JPanel(new BorderLayout(15, 15)) {
+            private Image backgroundImage = new ImageIcon("C:\\Users\\HP\\OneDrive - Universite Evry Val d'Essonne\\Programmation orienté\\Louscoot\\degrade_gris.jpg").getImage();
+
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (backgroundImage != null) {
+                    g.drawImage(backgroundImage, 0, 0, this.getWidth(), this.getHeight(), this);
+                }
+            }
+        };
+        this.setContentPane(backgroundPanel);
+        
         
         
         //titre de l'application
         titreApp = new JLabel("LOUSCOOT - Location de scooters", SwingConstants.CENTER);
         titreApp.setFont(new Font("Arial", Font.BOLD, 30));
+        titreApp.setForeground(Color.WHITE);
         
-        //filtres
+// --- FILTRES ---
         panelFilters = new JPanel();
         panelFilters.setLayout(new BoxLayout(panelFilters, BoxLayout.Y_AXIS));
-        panelFilters.setBorder(BorderFactory.createTitledBorder("Filtres"));
-        panelFilters.setPreferredSize(new Dimension(200, 0));
+        // Bordure blanche pour le panneau principal
+        panelFilters.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE), "Filtres", 0, 0, new Font("Arial", Font.BOLD, 14), Color.WHITE));
+        panelFilters.setPreferredSize(new Dimension(220, 0));
+        panelFilters.setOpaque(false); // Fond transparent
 
+        // Outil pour créer des bordures blanches facilement
+        javax.swing.border.Border bordureBlanche = BorderFactory.createLineBorder(Color.WHITE);
 
-        //box pour les filtres
-        radioCroissant = new JRadioButton("Prix croissant");
-        radioDecroissant = new JRadioButton("Prix décroissant");
-        groupePrix = new ButtonGroup();
+        // 1. Box pour le Tri par prix
+        JPanel pTri = new JPanel();
+        pTri.setLayout(new BoxLayout(pTri, BoxLayout.Y_AXIS));
+        pTri.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Tri par prix", 0, 0, null, Color.WHITE));
+        pTri.setOpaque(false); // Transparent
         
+        radioCroissant = new JRadioButton("Prix croissant");
+        radioCroissant.setForeground(Color.WHITE); 
+        radioCroissant.setOpaque(false);
+        
+        radioDecroissant = new JRadioButton("Prix décroissant");
+        radioDecroissant.setForeground(Color.WHITE); 
+        radioDecroissant.setOpaque(false);
+        
+        groupePrix = new ButtonGroup();
         groupePrix.add(radioCroissant);
         groupePrix.add(radioDecroissant);
+        pTri.add(radioCroissant);
+        pTri.add(radioDecroissant);
         
-        panelFilters.add(radioCroissant);
-        panelFilters.add(radioDecroissant);
+        panelFilters.add(pTri);
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
 
         radioCroissant.addActionListener(e -> modele.trierParPrix(true));
         radioDecroissant.addActionListener(e -> modele.trierParPrix(false));
 
-       
-       
-        // box pour types de permis
+        // 2. Box pour types de permis
         JPanel panelPermis = new JPanel();
         panelPermis.setLayout(new BoxLayout(panelPermis, BoxLayout.Y_AXIS));
-        panelPermis.setBorder(BorderFactory.createTitledBorder("Type de permis"));
+        panelPermis.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Type de permis", 0, 0, null, Color.WHITE));
+        panelPermis.setOpaque(false);
         comboPermis = new JComboBox<>();
         comboPermis.setMaximumSize(new Dimension(180, 30));
         panelPermis.add(comboPermis);
-        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
         panelFilters.add(panelPermis);
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        //box pour motorisation
+        // 3. Box pour motorisation
         JPanel pMotorisation = new JPanel();
         pMotorisation.setLayout(new BoxLayout(pMotorisation, BoxLayout.Y_AXIS));
-        pMotorisation.setBorder(BorderFactory.createTitledBorder("Motorisation"));
+        pMotorisation.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Motorisation", 0, 0, null, Color.WHITE));
+        pMotorisation.setOpaque(false);
         comboMoto = new JComboBox<>();
         comboMoto.setMaximumSize(new Dimension(180, 30));
         pMotorisation.add(comboMoto);
-        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
         panelFilters.add(pMotorisation);
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        //box pour marque
+        // 4. Box pour marque
         JPanel pMarque = new JPanel();
         pMarque.setLayout(new BoxLayout(pMarque, BoxLayout.Y_AXIS));
-        pMarque.setBorder(BorderFactory.createTitledBorder("Marque"));;
+        pMarque.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Marque", 0, 0, null, Color.WHITE));
+        pMarque.setOpaque(false);
         comboMarque = new JComboBox<>();
         comboMarque.setMaximumSize(new Dimension(180, 30));
         pMarque.add(comboMarque);
-        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
         panelFilters.add(pMarque);
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        //box pour date de disponibilité
+        // 5. Box pour date de disponibilité
         JPanel pDate = new JPanel();
         pDate.setLayout(new BoxLayout(pDate, BoxLayout.Y_AXIS));
-        pDate.setBorder(BorderFactory.createTitledBorder("Disponibilité"));
+        pDate.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Disponibilité", 0, 0, null, Color.WHITE));
+        pDate.setOpaque(false);
+        
         JLabel labelDebut = new JLabel("Date de début:");
+        labelDebut.setForeground(Color.WHITE); // Texte en blanc
         JTextField dateDebut = new JTextField("JJ/MM/AAAA");
         dateDebut.setMaximumSize(new Dimension(180, 30));
 
         JLabel labelFin = new JLabel("Date de fin:");
+        labelFin.setForeground(Color.WHITE); // Texte en blanc
         JTextField dateFin = new JTextField("JJ/MM/AAAA");
         dateFin.setMaximumSize(new Dimension(180, 30));
 
         pDate.add(labelDebut);
         pDate.add(dateDebut);   
-        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
+        pDate.add(Box.createRigidArea(new Dimension(0, 5)));
         pDate.add(labelFin);
         pDate.add(dateFin);
         panelFilters.add(pDate);
-
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
         
-        
-        //box pour couleur
+        // 6. Box pour couleur
         JPanel pCouleur = new JPanel();
         pCouleur.setLayout(new BoxLayout(pCouleur, BoxLayout.Y_AXIS));
-        pCouleur.setBorder(BorderFactory.createTitledBorder("Couleur"));
+        pCouleur.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Couleur", 0, 0, null, Color.WHITE));
+        pCouleur.setOpaque(false);
         comboCouleur = new JComboBox<>();
         comboCouleur.setMaximumSize(new Dimension(180, 30));
         pCouleur.add(comboCouleur);
-        panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
         panelFilters.add(pCouleur);
-        
 
-        panelFilters.add(Box.createRigidArea(new Dimension(0, 15))); // Grand espace
+        panelFilters.add(Box.createRigidArea(new Dimension(0, 15))); 
+        
+        // 7. Bouton Appliquer
         JButton btnAppliquer = new JButton("Appliquer les filtres");
-        btnAppliquer.setAlignmentX(Component.CENTER_ALIGNMENT); // Pour le centrer
-        btnAppliquer.setBackground(new Color(255, 0,0 )); 
-        btnAppliquer.setForeground(Color.BLACK); // Texte en NOIR
+        btnAppliquer.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // On utilise ta méthode styliserBouton pour qu'il soit raccord ! (Rouge foncé)
+        styliserBouton(btnAppliquer, new Color(200, 0, 0), Color.WHITE);
         panelFilters.add(btnAppliquer);
 
-
         panelFilters.setVisible(false);
+        // --- FIN FILTRES ---
 
         JPanel panelMenuDroit = new JPanel(new BorderLayout());
+        panelMenuDroit.setOpaque(false); // Transparent pour le fond
         JButton btnToggleFiltres = new JButton("Filtres ◀");
         btnToggleFiltres.setFont(new Font("Arial", Font.BOLD, 14));
         
@@ -167,13 +202,14 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //CRÉATION DU BLOC DU HAUT 
         JPanel panelHaut = new JPanel();
         panelHaut.setLayout(new BoxLayout(panelHaut, BoxLayout.Y_AXIS));
-
+        panelHaut.setOpaque(false); // Pour que le fond transparent fonctionne
         // Ajout du titre
         titreApp.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelHaut.add(titreApp);
 
         // Ajout de la navigation (Historique, Profil, etc.)
         JPanel panelNavigation = new JPanel(new FlowLayout(FlowLayout.CENTER,10,0));
+        panelNavigation.setOpaque(false); // Transparent pour le fond
         btnHistorique = new JButton("Historique");
         commande = new JButton("Commandes");
         btnProfil = new JButton("Mon Profil");
@@ -186,8 +222,19 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
         String texteBouton = estGerant ? "Passer en mode Client" : "Passer en mode Gérant";
         btnBasculer = new JButton(texteBouton);
-        btnBasculer.setBackground(new Color(255, 140, 0));
-        btnBasculer.setForeground(Color.WHITE);
+        Color grisFonce = new Color(50, 50, 50); // Un gris qui ira bien avec ton fond
+        
+        styliserBouton(btnHistorique, grisFonce, Color.WHITE);
+        styliserBouton(commande, grisFonce, Color.WHITE);
+        styliserBouton(btnProfil, grisFonce, Color.WHITE);
+        styliserBouton(contact, grisFonce, Color.WHITE);
+        styliserBouton(btnAjoutScooter, grisFonce, Color.WHITE);
+        styliserBouton(btnAjoutEmploye, grisFonce, Color.WHITE);
+        styliserBouton(btnBasculer, new Color(255, 140, 0), Color.WHITE); 
+        
+        // On peut aussi styliser les boutons de recherche et filtres !
+        styliserBouton(btnToggleFiltres, grisFonce, Color.WHITE);
+
 
         btnAjoutEmploye.addActionListener(e -> {
             new FenetreAjoutEmploye(modele).setVisible(true);
@@ -245,11 +292,13 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
        // On regroupe la recherche et les scooters dans un seul panneau
         JPanel zoneCentrale = new JPanel(new BorderLayout(10, 10));
-
+        zoneCentrale.setOpaque(false); // Transparent pour le fond
         //La barre de recherche
         JPanel panelRecherche = new JPanel(new BorderLayout(5, 5));
+        panelRecherche.setOpaque(false); // Transparent pour le fond
         barreRecherche = new JTextField();
         btnRechercher = new JButton("Rechercher");
+        styliserBouton(btnRechercher, new Color(50, 50, 50), Color.WHITE);
         panelRecherche.add(barreRecherche, BorderLayout.CENTER);
         panelRecherche.add(btnRechercher, BorderLayout.EAST);
         
@@ -259,7 +308,11 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //Le panneau pour les scooters
         panneauScoot = new JPanel();
         panneauScoot.setLayout(new GridLayout(0, 3, 10, 10)); 
+        panneauScoot.setOpaque(false); // Transparent pour le fond
         JScrollPane scrollPane = new JScrollPane(panneauScoot);// Permet d'ajouter une barre de défilement
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Enlève la bordure du scroll
         
         //centre de la zone centrale
         zoneCentrale.add(scrollPane, BorderLayout.CENTER); 
@@ -324,6 +377,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         carte.add(panelInfos, BorderLayout.CENTER);
         //Bouton "Plus de détails" en bas avec son action !
         JButton btnDetails = new JButton("Plus de détails");
+        styliserBouton(btnDetails, new Color(30, 30, 30), Color.WHITE);
         btnDetails.addActionListener(e -> {
             // On envoie le booléen estGerant à la page de détails !
             FenetreDetails fenetre = new FenetreDetails(modele, scooter, estGerant);
@@ -334,8 +388,11 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         
         carte.add(btnDetails, BorderLayout.SOUTH);
 
+        
+
 
         return carte;
+        
     }
     @Override
     public void update(java.util.Observable o, Object arg) {
@@ -381,6 +438,14 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         if (motoSel != null) comboMoto.setSelectedItem(motoSel);
         if (permisSel != null) comboPermis.setSelectedItem(permisSel);
         if (couleurSel != null) comboCouleur.setSelectedItem(couleurSel);
+    }
+    private void styliserBouton(JButton btn, Color fond, Color texte) {
+        btn.setBackground(fond);
+        btn.setForeground(texte);
+        btn.setFont(new Font("Arial", Font.BOLD, 14));
+        btn.setFocusPainted(false); // Enlève le petit carré pointillé moche au clic
+        btn.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15)); // Espace autour du texte
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Curseur "main"
     }
 }
 
