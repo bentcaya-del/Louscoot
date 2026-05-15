@@ -262,11 +262,12 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
             boolean okMoto = motoReq.equals("Tout") || s.getModele().getMotorisation().equalsIgnoreCase(motoReq);
             boolean okCouleur = couleurReq.equals("Tout") || s.getColoris().equalsIgnoreCase(couleurReq);
             boolean okDates = true;
-            if (dateDebutRecherche != null && dateFinRecherche != null) {
-            okDates = s.estDIsponibleAuxDates(dateDebutRecherche, dateFinRecherche);
-        }
+            if (dateDebutRecherche != null && !dateDebutRecherche.trim().isEmpty() && !dateDebutRecherche.equals("Tout") && !dateDebutRecherche.equals("JJ/MM/AAAA") &&
+                dateFinRecherche != null && !dateFinRecherche.trim().isEmpty() && !dateFinRecherche.equals("Tout") && !dateFinRecherche.equals("JJ/MM/AAAA")) {                
+                okDates = s.estDisponibleAuxDates(dateDebutRecherche, dateFinRecherche);
+            }
             // Si le scooter respecte TOUS les choix, on le garde
-            if (okMarque && okPermis && okMoto && okCouleur) {
+            if (okMarque && okPermis && okMoto && okCouleur && okDates) {
                 resultats.add(s);
             }
         }
