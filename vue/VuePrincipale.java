@@ -41,7 +41,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         this.estGerant = estGerant;
 
         JPanel backgroundPanel = new JPanel(new BorderLayout(15, 15)) {
-            private Image backgroundImage = new ImageIcon("C:\\Users\\HP\\OneDrive - Universite Evry Val d'Essonne\\Programmation orienté\\Louscoot\\degrade_gris.jpg").getImage();
+            private Image backgroundImage = new ImageIcon("C:\\Users\\Samyy\\OneDrive - Universite Evry Val d'Essonne\\L2 informatique\\Semestre 2\\Java\\Louscoot\\degrade_gris.jpg").getImage();
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -413,6 +413,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //On force la fenêtre à se redessiner
         panneauScoot.revalidate();
         panneauScoot.repaint();
+        actualiserTousLesFiltres();
     }
     public void actualiserTousLesFiltres() {
         // On mémorise ce que l'utilisateur avait sélectionné (pour ne pas le perdre au rafraîchissement)

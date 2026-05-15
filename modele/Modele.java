@@ -139,4 +139,11 @@ public class Modele {
         return fiche;
     }
 
+
+    @Override
+    public String toString() {
+        // Affiche par exemple : "Yamaha - NMAX"
+        return this.marque.getNomMarque() + " - " + this.nom_modele; 
+    }
+
 }

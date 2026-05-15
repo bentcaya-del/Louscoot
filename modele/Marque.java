@@ -56,5 +56,8 @@ public class Marque {
         this.pays_origine = pays_origine;
     }
 
-    
+    @Override
+    public String toString() {
+        return this.nom_marque;
+    }
 }

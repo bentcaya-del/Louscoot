@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import modele.*;
 import controleur.ControleurAjoutScooter;
-import java.util.Vector;
 
 public class FenetreAjoutScooter extends JFrame {
     
@@ -27,13 +26,7 @@ public class FenetreAjoutScooter extends JFrame {
 
         // On récupère tous les modèles disponibles dans le parc pour les mettre dans la liste
         // On crée un Vector de Modeles uniques pour la JComboBox
-        Vector<Modele> listeModeles = new Vector<>();
-        for (Scooter s : modeleParc.getListe_scooter()) {
-            if (!listeModeles.contains(s.getModele())) {
-                listeModeles.add(s.getModele());
-            }
-        }
-        comboModeles = new JComboBox<>(listeModeles);
+        comboModeles = new JComboBox<>(modeleParc.getCatalogueModeles());
 
         JPanel panelForm = new JPanel(new GridLayout(6, 2, 10, 20));
         panelForm.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));

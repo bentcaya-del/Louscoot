@@ -24,14 +24,18 @@ public class ControleurFiltre implements ActionListener {
         this.comboCouleur = couleur;
     }
 
-    @Override
+   @Override
     public void actionPerformed(ActionEvent e) {
-        // On lit les choix actuels
+        // Recuparations des choix
         String cPermis = (String) comboPermis.getSelectedItem();
         String cMoto = (String) comboMoto.getSelectedItem();
         String cMarque = (String) comboMarque.getSelectedItem();
         String cCouleur = (String) comboCouleur.getSelectedItem();
-        // On donne l'ordre au Parc de faire le tri combiné
-        modele.appliquerFiltresMultiples(cMarque, cPermis, cMoto, cCouleur); 
+    
+    //anti plantage
+    if (cPermis == null || cMoto == null || cMarque == null || cCouleur == null) {
+            return; 
+        }
     }
-}
+
+}   
