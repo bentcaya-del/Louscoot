@@ -18,7 +18,7 @@ public class FenetreAccueil extends JFrame {
 
             {
                 try {
-                    backgroundImage = new ImageIcon("C:\\Users\\HP\\OneDrive - Universite Evry Val d'Essonne\\Programmation orienté\\Louscoot\\Background_image.jpeg").getImage();
+                    backgroundImage = new ImageIcon("images/Background_image.jpeg").getImage();
                 } catch (Exception e) {}
             }
 
