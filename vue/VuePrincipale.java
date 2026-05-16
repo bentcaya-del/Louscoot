@@ -26,9 +26,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JRadioButton radioCroissant;
     private JRadioButton radioDecroissant;
     private ButtonGroup groupePrix;
-    private boolean estGerant; 
-    private Client clientEnCours = null; // Il n'y a personne de connecté au démarrage
-    // private Client clientEnCours = new Client("Dupont", "Jean", "0601020304", "jean.dupont@email.com");
+    private boolean estGerant;
     
     public VuePrincipale(Parc modele, boolean estGerant) {
         this.modele = modele;
