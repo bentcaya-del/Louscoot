@@ -18,36 +18,55 @@ public class FenetreRetour extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
+        getContentPane().setBackground(new Color(45, 45, 45));
+        
         JPanel panelHaut = new JPanel(new GridLayout(3, 2, 10, 15)); 
+        panelHaut.setOpaque(false);
         panelHaut.setBorder(BorderFactory.createEmptyBorder(20, 30, 10, 30)); 
         
-        panelHaut.add(new JLabel("Date de retour (AAAA-MM-JJ) :"));
-        panelHaut.add(txtDate);
-        panelHaut.add(new JLabel("Kilométrage parcouru :"));
-        panelHaut.add(txtKilometrage);
-        panelHaut.add(new JLabel("Pénalité dégâts (€) :"));
-        panelHaut.add(txtPenalite);
+        panelHaut.add(creerLabel("Date de retour (AAAA-MM-JJ) :")); panelHaut.add(txtDate);
+        panelHaut.add(creerLabel("Kilométrage parcouru :")); panelHaut.add(txtKilometrage);
+        panelHaut.add(creerLabel("Pénalité dégâts (€) :")); panelHaut.add(txtPenalite);
         
-        // Zone pour les commentaires 
         JPanel panelCommentaire = new JPanel(new BorderLayout());
+        panelCommentaire.setOpaque(false);
         panelCommentaire.setBorder(BorderFactory.createEmptyBorder(0, 30, 20, 30));
-        panelCommentaire.add(new JLabel("Commentaires sur l'état du scooter :"), BorderLayout.NORTH);
+        panelCommentaire.add(creerLabel("Commentaires sur l'état du scooter :"), BorderLayout.NORTH);
         
         txtCommentaires.setLineWrap(true);
         txtCommentaires.setWrapStyleWord(true);
         panelCommentaire.add(new JScrollPane(txtCommentaires), BorderLayout.CENTER);
 
         JPanel panelCentre = new JPanel(new BorderLayout());
+        panelCentre.setOpaque(false);
         panelCentre.add(panelHaut, BorderLayout.NORTH);
         panelCentre.add(panelCommentaire, BorderLayout.CENTER);
         add(panelCentre, BorderLayout.CENTER);
         
         JPanel panelBas = new JPanel();
+        panelBas.setOpaque(false);
         panelBas.setBorder(BorderFactory.createEmptyBorder(0, 0, 15, 0)); 
+        styliserBouton(btnValider, new Color(220, 50, 50), Color.WHITE); // Rouge
         panelBas.add(btnValider);
         add(panelBas, BorderLayout.SOUTH);
 
         ControleurRetour ctrlRet = new ControleurRetour(modele, locationEnCours, this);
         btnValider.addActionListener(ctrlRet);
+    }
+
+    private JLabel creerLabel(String texte) {
+        JLabel label = new JLabel(texte);
+        label.setForeground(Color.WHITE);
+        label.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
+        return label;
+    }
+
+    private void styliserBouton(JButton btn, Color fond, Color texte) {
+        btn.setBackground(fond);
+        btn.setForeground(texte);
+        btn.setFont(new Font("Arial", Font.BOLD, 14));
+        btn.setFocusPainted(false);
+        btn.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 }
