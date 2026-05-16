@@ -223,7 +223,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
         String texteBouton = estGerant ? "Passer en mode Client" : "Passer en mode Gérant";
         btnBasculer = new JButton(texteBouton);
-        Color grisFonce = new Color(50, 50, 50); // Un gris qui ira bien avec ton fond
+        Color grisFonce = new Color(50, 50, 50);//gris
         
         styliserBouton(btnHistorique, grisFonce, Color.WHITE);
         styliserBouton(commande, grisFonce, Color.WHITE);
