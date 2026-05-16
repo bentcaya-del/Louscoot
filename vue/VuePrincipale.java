@@ -147,13 +147,13 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         
         JLabel labelDebut = new JLabel("Date de début:");
         labelDebut.setForeground(Color.WHITE); // Texte en blanc
-        JTextField dateDebut = new JTextField("AAAA-MM-JJ");
-        dateDebut.setMaximumSize(new Dimension(180, 30));
+        this.dateDebut = new JTextField("AAAA-MM-JJ");
+        this.dateDebut.setMaximumSize(new Dimension(180, 30));
 
         JLabel labelFin = new JLabel("Date de fin:");
         labelFin.setForeground(Color.WHITE); // Texte en blanc
-        JTextField dateFin = new JTextField("AAAA-MM-JJ");
-        dateFin.setMaximumSize(new Dimension(180, 30));
+        this.dateFin = new JTextField("AAAA-MM-JJ");
+        this.dateFin.setMaximumSize(new Dimension(180, 30));
 
         pDate.add(labelDebut);
         pDate.add(dateDebut);   
@@ -178,7 +178,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //Bouton Appliquer les filtres
         JButton btnAppliquer = new JButton("Appliquer les filtres");
         btnAppliquer.setAlignmentX(Component.CENTER_ALIGNMENT);
-        // On utilise ta méthode styliserBouton pour qu'il soit raccord ! (Rouge foncé)
         styliserBouton(btnAppliquer, new Color(200, 0, 0), Color.WHITE);
         panelFilters.add(btnAppliquer);
 
@@ -253,8 +252,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         });
 
         btnBasculer.addActionListener(e -> {
-            this.dispose(); // Ferme la fenêtre actuelle
-            new VuePrincipale(modele, !estGerant); // Ouvre la nouvelle avec le booléen inversé
+            this.dispose(); 
+            new VuePrincipale(modele, !estGerant);
         });
 
         btnAjoutScooter.addActionListener(e -> {
@@ -280,43 +279,38 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
 
         btnProfil.addActionListener(e -> {
-    // Remplacer 'clientEnCours' par la variable que tu utilises pour stocker le client actuel
     if (clientEnCours != null) {
         new FenetreProfil(clientEnCours);
     } else {
         JOptionPane.showMessageDialog(this, "Aucun utilisateur connecté.", "Erreur", JOptionPane.WARNING_MESSAGE);
     }
 });
+    
+        this.add(panelHaut, BorderLayout.NORTH);
 
-        // Configuration des barres de défilement
+        //barres de défilement
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         // Vitesse du scroll
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        // Taille de la zone visible
+        //zone visible
         scrollPane.setPreferredSize(new Dimension(800, 500));
-        add(scrollPane, BorderLayout.CENTER);
         panneauScoot.setOpaque(false);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(null);
-        
-        // On place ce bloc tout en haut
-        this.add(panelHaut, BorderLayout.NORTH);
 
        // On regroupe la recherche et les scooters dans un seul panneau
         JPanel zoneCentrale = new JPanel(new BorderLayout(10, 10));
-        zoneCentrale.setOpaque(false); // Transparent pour le fond
+        zoneCentrale.setOpaque(false);
         //La barre de recherche
         JPanel panelRecherche = new JPanel(new BorderLayout(5, 5));
-        panelRecherche.setOpaque(false); // Transparent pour le fond
+        panelRecherche.setOpaque(false);
         barreRecherche = new JTextField();
         btnRechercher = new JButton("Rechercher");
         styliserBouton(btnRechercher, new Color(50, 50, 50), Color.WHITE);
         panelRecherche.add(barreRecherche, BorderLayout.CENTER);
         panelRecherche.add(btnRechercher, BorderLayout.EAST);
-        
-        //en haut de la zone centrale
         zoneCentrale.add(panelRecherche, BorderLayout.NORTH); 
 
 
@@ -328,7 +322,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
         ControleurRecherche ctrlRecherche = new ControleurRecherche(modele, barreRecherche);
         
-        // On attache l'espion au bouton "Rechercher"
         btnRechercher.addActionListener(ctrlRecherche);
 
         ControleurFiltre ctrlFiltre = new ControleurFiltre(modele, comboPermis, comboMoto, comboMarque, comboCouleur, dateDebut, dateFin);
@@ -363,14 +356,14 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
     
     private JPanel creerCarteScooter(Scooter scooter) {
-        // 1. Panneau avec dessin de l'image en fond
-        JPanel carte = new JPanel(new BorderLayout(5, 5)) {
-            private Image imgFond;
-            {
-                try {
-                    String chemin = scooter.getCheminPhoto();
-                    if (chemin != null && !chemin.isEmpty()) {
-                        imgFond = new ImageIcon(chemin).getImage();
+        //dessin de l'image en fond
+    JPanel carte = new JPanel(new BorderLayout(5, 5)) {
+        private Image imgFond;
+        {
+        try {
+        String chemin = scooter.getCheminPhoto();
+        if (chemin != null && !chemin.isEmpty()) {
+                imgFond = new ImageIcon(chemin).getImage();
                     }
                 } catch (Exception e) {}
             }
@@ -379,7 +372,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 if (imgFond != null) {
-                    // On dessine l'image sur toute la carte
+
                     g.drawImage(imgFond, 0, 0, getWidth(), getHeight(), this);
                     // On ajoute un voile noir semi-transparent pour la lisibilité
                     g.setColor(new Color(0, 0, 0, 140)); 
@@ -393,7 +386,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         };
         carte.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 
-        // Nom du scooter (Blanc)
+        // Nom du scooter
         JLabel labelModele = new JLabel(scooter.getModele().getNom_modele(), SwingConstants.CENTER);
         labelModele.setFont(new Font("Arial", Font.BOLD, 20));
         labelModele.setForeground(Color.WHITE);
@@ -416,14 +409,13 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         
         JLabel labelPrix = new JLabel(scooter.getPrix_jour() + " € / jour", SwingConstants.CENTER);
         labelPrix.setFont(new Font("Arial", Font.BOLD, 14));
-        labelPrix.setForeground(new Color(100, 255, 100)); // Vert fluo pour le prix
+        labelPrix.setForeground(new Color(100, 255, 100)); // Vert fluo
         panelInfos.add(labelPrix);
         
         carte.add(panelInfos, BorderLayout.CENTER);
 
-        // 4. Bouton "Plus de détails"
+        //Bouton "Plus de détails"
         JButton btnDetails = new JButton("Plus de détails");
-        // On réutilise ta méthode styliserBouton pour qu'il soit beau (ex: Orange)
         styliserBouton(btnDetails, new Color(255, 140, 0), Color.WHITE);
         btnDetails.addActionListener(e -> {
             new FenetreDetails(modele, scooter, estGerant).setVisible(true);
@@ -444,7 +436,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //On récupère la nouvelle liste de scooters envoyée par le Parc
         java.util.Vector<Scooter> listeScooters = (java.util.Vector<Scooter>) arg;
 
-        //On crée une carte pour chaque scooter et on l'ajoute à la grille
         if (listeScooters != null) {
             for (int i = 0; i < listeScooters.size(); i++) {
                 Scooter s = listeScooters.get(i);
@@ -452,25 +443,24 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
             }
         }
 
-        //On force la fenêtre à se redessiner
         panneauScoot.revalidate();
         panneauScoot.repaint();
         actualiserTousLesFiltres();
     }
     public void actualiserTousLesFiltres() {
-        // On mémorise ce que l'utilisateur avait sélectionné (pour ne pas le perdre au rafraîchissement)
+        // On mémorise ce que l'utilisateur avait sélectionné
         Object marqueSel = comboMarque.getSelectedItem();
         Object motoSel = comboMoto.getSelectedItem();
         Object permisSel = comboPermis.getSelectedItem();
         Object couleurSel = comboCouleur.getSelectedItem();
 
-        // On vide complètement toutes les boîtes
+        // On vide les boîtes
         comboMarque.removeAllItems();
         comboMoto.removeAllItems();
         comboPermis.removeAllItems();
         comboCouleur.removeAllItems();
 
-        // On demande au Parc toutes les listes à jour
+        //toutes les listes à jour  du parc
         for (String m : modele.getMarquesUniques()) comboMarque.addItem(m);
         for (String m : modele.getMotorisationsUniques()) comboMoto.addItem(m);
         for (String p : modele.getPermisUniques()) comboPermis.addItem(p);
@@ -486,8 +476,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         btn.setBackground(fond);
         btn.setForeground(texte);
         btn.setFont(new Font("Arial", Font.BOLD, 14));
-        btn.setFocusPainted(false); // Enlève le petit carré pointillé moche au clic
-        btn.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15)); // Espace autour du texte
-        btn.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Curseur "main"
+        btn.setFocusPainted(false); // Enlève le petit carré pointillé au clic
+        btn.setBorder(BorderFactory.createEmptyBorder(8, 15, 8, 15));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 }

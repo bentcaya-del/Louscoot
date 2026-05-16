@@ -64,7 +64,7 @@ public class FenetreDetails extends JFrame {
                 }
             });
             panelBas.add(btnRetour);
-        }
+        
 
         JButton btnSupprimer = new JButton("Supprimer le scooter");
         styliserBouton(btnSupprimer, new Color(200, 40, 40), Color.WHITE);
@@ -82,7 +82,7 @@ public class FenetreDetails extends JFrame {
             }
         });
         panelBas.add(btnSupprimer);
-
+    }
         JButton btnFermer = new JButton("Fermer");
         styliserBouton(btnFermer, new Color(100, 100, 100), Color.WHITE);
         btnFermer.setPreferredSize(new Dimension(140, 40));
