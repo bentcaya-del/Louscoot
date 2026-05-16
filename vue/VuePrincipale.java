@@ -71,6 +71,18 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         // Outil pour créer des bordures blanches facilement
         javax.swing.border.Border bordureBlanche = BorderFactory.createLineBorder(Color.WHITE);
 
+        panneauScoot = new JPanel();
+        
+        panneauScoot.setLayout(new GridLayout(0, 3, 15, 15)); 
+        JPanel conteneurHaut = new JPanel(new BorderLayout());
+        conteneurHaut.setOpaque(false);
+        // On place la grille tout en haut
+        conteneurHaut.add(panneauScoot, BorderLayout.NORTH);
+        JScrollPane scrollPane = new JScrollPane(conteneurHaut);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
+        
         // 1. Box pour le Tri par prix
         JPanel pTri = new JPanel();
         pTri.setLayout(new BoxLayout(pTri, BoxLayout.Y_AXIS));
@@ -288,7 +300,19 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     }
 });
 
-
+        // Configuration des barres de défilement
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        // Vitesse du scroll
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        // Taille de la zone visible
+        scrollPane.setPreferredSize(new Dimension(800, 500));
+        add(scrollPane, BorderLayout.CENTER);
+        panneauScoot.setOpaque(false);
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+        scrollPane.setBorder(null);
+        
         // On place ce bloc tout en haut
         this.add(panelHaut, BorderLayout.NORTH);
 
@@ -307,14 +331,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         //en haut de la zone centrale
         zoneCentrale.add(panelRecherche, BorderLayout.NORTH); 
 
-        //Le panneau pour les scooters
-        panneauScoot = new JPanel();
-        panneauScoot.setLayout(new GridLayout(0, 3, 10, 10)); 
-        panneauScoot.setOpaque(false); // Transparent pour le fond
-        JScrollPane scrollPane = new JScrollPane(panneauScoot);// Permet d'ajouter une barre de défilement
-        scrollPane.setOpaque(false);
-        scrollPane.getViewport().setOpaque(false);
-        scrollPane.setBorder(BorderFactory.createEmptyBorder()); // Enlève la bordure du scroll
+
         
         //centre de la zone centrale
         zoneCentrale.add(scrollPane, BorderLayout.CENTER); 
