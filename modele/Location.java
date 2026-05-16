@@ -155,7 +155,7 @@ public class Location {
     
         
 
-    public String afficherFacture(int i) {
+    public String afficherFacture() {
         String facture = "--- FACTURE LOUSCOOT ---\n";
         facture += "Client : " + this.client.getPrenom() + " " + this.client.getNom() + "\n";
         facture += "Dates : du " + this.date_debut + " au " + this.date_fin + "\n";
