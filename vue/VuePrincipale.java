@@ -26,7 +26,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JRadioButton radioCroissant;
     private JRadioButton radioDecroissant;
     private ButtonGroup groupePrix;
-    private boolean estGerant; // Permet de savoir si on affiche les fonctionnalités de gérant ou pas
+    private boolean estGerant; 
     private Client clientEnCours = null; // Il n'y a personne de connecté au démarrage
     // private Client clientEnCours = new Client("Dupont", "Jean", "0601020304", "jean.dupont@email.com");
     
@@ -60,15 +60,13 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         titreApp.setFont(new Font("Arial", Font.BOLD, 30));
         titreApp.setForeground(Color.WHITE);
         
-// Filtre
+        // Filtre
         panelFilters = new JPanel();
         panelFilters.setLayout(new BoxLayout(panelFilters, BoxLayout.Y_AXIS));
         // Bordure blanche pour le panneau principal
         panelFilters.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.WHITE), "Filtres", 0, 0, new Font("Arial", Font.BOLD, 14), Color.WHITE));
         panelFilters.setPreferredSize(new Dimension(220, 0));
         panelFilters.setOpaque(false); // Fond transparent
-
-        // Outil pour créer des bordures blanches facilement
         javax.swing.border.Border bordureBlanche = BorderFactory.createLineBorder(Color.WHITE);
 
         panneauScoot = new JPanel();
@@ -76,23 +74,20 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panneauScoot.setLayout(new GridLayout(0, 3, 15, 15)); 
         JPanel conteneurHaut = new JPanel(new BorderLayout());
         conteneurHaut.setOpaque(false);
-        // On place la grille tout en haut
         conteneurHaut.add(panneauScoot, BorderLayout.NORTH);
         JScrollPane scrollPane = new JScrollPane(conteneurHaut);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(null);
         
-        // 1. Box pour le Tri par prix
+        //Tri par prix
         JPanel pTri = new JPanel();
         pTri.setLayout(new BoxLayout(pTri, BoxLayout.Y_AXIS));
         pTri.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Tri par prix", 0, 0, null, Color.WHITE));
-        pTri.setOpaque(false); // Transparent
-        
+        pTri.setOpaque(false);
         radioCroissant = new JRadioButton("Prix croissant");
         radioCroissant.setForeground(Color.WHITE); 
         radioCroissant.setOpaque(false);
-        
         radioDecroissant = new JRadioButton("Prix décroissant");
         radioDecroissant.setForeground(Color.WHITE); 
         radioDecroissant.setOpaque(false);
@@ -109,7 +104,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         radioCroissant.addActionListener(e -> modele.trierParPrix(true));
         radioDecroissant.addActionListener(e -> modele.trierParPrix(false));
 
-        // 2. Box pour types de permis
+        //types de permis
         JPanel panelPermis = new JPanel();
         panelPermis.setLayout(new BoxLayout(panelPermis, BoxLayout.Y_AXIS));
         panelPermis.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Type de permis", 0, 0, null, Color.WHITE));
@@ -120,7 +115,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelFilters.add(panelPermis);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        // 3. Box pour motorisation
+        //motorisation
         JPanel pMotorisation = new JPanel();
         pMotorisation.setLayout(new BoxLayout(pMotorisation, BoxLayout.Y_AXIS));
         pMotorisation.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Motorisation", 0, 0, null, Color.WHITE));
@@ -131,7 +126,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelFilters.add(pMotorisation);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        // 4. Box pour marque
+        //marque
         JPanel pMarque = new JPanel();
         pMarque.setLayout(new BoxLayout(pMarque, BoxLayout.Y_AXIS));
         pMarque.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Marque", 0, 0, null, Color.WHITE));
@@ -142,7 +137,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelFilters.add(pMarque);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
 
-        // 5. Box pour date de disponibilité
+        //date de disponibilité
         JPanel pDate = new JPanel();
         pDate.setLayout(new BoxLayout(pDate, BoxLayout.Y_AXIS));
         pDate.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Disponibilité", 0, 0, null, Color.WHITE));
@@ -166,7 +161,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelFilters.add(pDate);
         panelFilters.add(Box.createRigidArea(new Dimension(0, 10)));
         
-        // 6. Box pour couleur
+        //couleur
         JPanel pCouleur = new JPanel();
         pCouleur.setLayout(new BoxLayout(pCouleur, BoxLayout.Y_AXIS));
         pCouleur.setBorder(BorderFactory.createTitledBorder(bordureBlanche, "Couleur", 0, 0, null, Color.WHITE));
@@ -178,7 +173,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
         panelFilters.add(Box.createRigidArea(new Dimension(0, 15))); 
         
-        // 7. Bouton Appliquer
+        //Bouton Appliquer les filtres
         JButton btnAppliquer = new JButton("Appliquer les filtres");
         btnAppliquer.setAlignmentX(Component.CENTER_ALIGNMENT);
         // On utilise ta méthode styliserBouton pour qu'il soit raccord ! (Rouge foncé)
@@ -186,24 +181,20 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelFilters.add(btnAppliquer);
 
         panelFilters.setVisible(false);
-        // --- FIN FILTRES ---
+        //                          FIN FILTRES
 
+        //filtre a droite
         JPanel panelMenuDroit = new JPanel(new BorderLayout());
         panelMenuDroit.setOpaque(false); // Transparent pour le fond
-        JButton btnToggleFiltres = new JButton("Filtres ◀");
+        JButton btnToggleFiltres = new JButton("Filtres ");
         btnToggleFiltres.setFont(new Font("Arial", Font.BOLD, 14));
         
         // Action pour afficher/masquer les filtres
         btnToggleFiltres.addActionListener(e -> {
             boolean estVisible = panelFilters.isVisible();
             panelFilters.setVisible(!estVisible);
-            if (estVisible) {
-                btnToggleFiltres.setText("Filtres ◀");
-            } else {
-                btnToggleFiltres.setText("Filtres ▼");
-            }
             this.revalidate();// Recalcule la mise en page
-            this.repaint();//refresh de la fenêtre pour que les changements soient pris en compte
+            this.repaint();//reinitialiser la fenetre pour que le changement soit pris en compte
         });
 
         panelMenuDroit.add(btnToggleFiltres, BorderLayout.NORTH); // Bouton en haut
@@ -211,26 +202,24 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
         this.add(panelMenuDroit, BorderLayout.EAST);
 
-        //CRÉATION DU BLOC DU HAUT 
+        //                                BLOC DU HAUT 
         JPanel panelHaut = new JPanel();
         panelHaut.setLayout(new BoxLayout(panelHaut, BoxLayout.Y_AXIS));
-        panelHaut.setOpaque(false); // Pour que le fond transparent fonctionne
-        // Ajout du titre
+        panelHaut.setOpaque(false);
         titreApp.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelHaut.add(titreApp);
 
-        // Ajout de la navigation (Historique, Profil, etc.)
+        //la navigation (Historique, Profil, etc.)
         JPanel panelNavigation = new JPanel(new FlowLayout(FlowLayout.CENTER,10,0));
-        panelNavigation.setOpaque(false); // Transparent pour le fond
+        panelNavigation.setOpaque(false);
         btnHistorique = new JButton("Historique");
         commande = new JButton("Commandes");
         btnProfil = new JButton("Mon Profil");
         contact = new JButton("Contact");
-        btnAjoutScooter = new JButton("Ajouter un Scooter");
-        btnAjoutEmploye = new JButton("Ajouter un Employé");
         btnCataMarque = new JButton("Nouv. Marque");
         btnCataModele = new JButton("Nouv. Modèle");
-
+        btnAjoutScooter = new JButton("Ajouter un Scooter");
+        btnAjoutEmploye = new JButton("Ajouter un Employé");
 
         String texteBouton = estGerant ? "Passer en mode Client" : "Passer en mode Gérant";
         btnBasculer = new JButton(texteBouton);
@@ -240,13 +229,12 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         styliserBouton(commande, grisFonce, Color.WHITE);
         styliserBouton(btnProfil, grisFonce, Color.WHITE);
         styliserBouton(contact, grisFonce, Color.WHITE);
-        styliserBouton(btnAjoutScooter, grisFonce, Color.WHITE);
-        styliserBouton(btnAjoutEmploye, grisFonce, Color.WHITE);
         styliserBouton(btnCataMarque, grisFonce, Color.WHITE);
         styliserBouton(btnCataModele, grisFonce, Color.WHITE);
+        styliserBouton(btnAjoutScooter, grisFonce, Color.WHITE);
+        styliserBouton(btnAjoutEmploye, grisFonce, Color.WHITE);;
         styliserBouton(btnBasculer, new Color(255, 140, 0), Color.WHITE); 
         
-        // On peut aussi styliser les boutons de recherche et filtres !
         styliserBouton(btnToggleFiltres, grisFonce, Color.WHITE);
 
 
@@ -272,14 +260,12 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         });
 
         if (estGerant) {
-            // Le Gérant voit ça :
+            panelNavigation.add(btnCataMarque);
+            panelNavigation.add(btnCataModele);
             panelNavigation.add(btnAjoutScooter);
             panelNavigation.add(btnAjoutEmploye);
             panelNavigation.add(btnHistorique);
-            panelNavigation.add(btnCataMarque);
-            panelNavigation.add(btnCataModele);
         } else {
-            // Le Client voit ça :
             panelNavigation.add(commande);
             panelNavigation.add(btnProfil);
             panelNavigation.add(contact);

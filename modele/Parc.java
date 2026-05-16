@@ -363,6 +363,12 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
         catalogueModeles.add(mod); 
     }
 
+    public void supprimerScooter(Scooter scooter) {
+        Liste_scooter.remove(scooter);
+        this.setChanged();
+        this.notifyObservers(Liste_scooter);
+    }
+
 
 
 

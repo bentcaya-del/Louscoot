@@ -7,7 +7,7 @@ public class FenetreDetails extends JFrame {
     
     public FenetreDetails(Parc modele, Scooter scooter, boolean estGerant) {
         setTitle("Détails : " + scooter.getModele().getNom_modele());
-        setSize(400, 600);
+        setSize(400, 500);
         setLocationRelativeTo(null); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(15, 15));
@@ -37,12 +37,14 @@ public class FenetreDetails extends JFrame {
         
         add(panelInfos, BorderLayout.CENTER);
 
-        JPanel panelBas = new JPanel();
+        JPanel panelBas = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 10));
         panelBas.setOpaque(false);
+        panelBas.setPreferredSize(new Dimension(0, 100));
         
         if (!estGerant) {
             JButton btnLouer = new JButton("Louer");
             styliserBouton(btnLouer, new Color(0, 120, 215), Color.WHITE);
+            btnLouer.setPreferredSize(new Dimension(140, 40));
             btnLouer.addActionListener(e -> {
                 new FenetreLouer(modele, scooter).setVisible(true);
                 dispose();
@@ -50,12 +52,13 @@ public class FenetreDetails extends JFrame {
             panelBas.add(btnLouer);
         } else {
             JButton btnRetour = new JButton("Gérer le retour");
-            styliserBouton(btnRetour, new Color(220, 50, 50), Color.WHITE);
+            styliserBouton(btnRetour, new Color(220, 120, 0), Color.WHITE);
+            btnRetour.setPreferredSize(new Dimension(140, 40));
             btnRetour.addActionListener(e -> {
                 if (!scooter.getListe_location().isEmpty()) {
                     Location derniereLoc = scooter.getListe_location().lastElement();
                     new FenetreRetour(modele, derniereLoc).setVisible(true);
-                    dispose(); 
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(this, "Ce scooter n'a aucune location en cours.", "Erreur", JOptionPane.WARNING_MESSAGE);
                 }
@@ -63,11 +66,29 @@ public class FenetreDetails extends JFrame {
             panelBas.add(btnRetour);
         }
 
+        JButton btnSupprimer = new JButton("Supprimer le scooter");
+        styliserBouton(btnSupprimer, new Color(200, 40, 40), Color.WHITE);
+        btnSupprimer.setPreferredSize(new Dimension(180, 40));
+        btnSupprimer.addActionListener(e -> {
+            int confirmation = JOptionPane.showConfirmDialog(this,
+                    "Voulez-vous vraiment supprimer ce scooter ?",
+                    "Confirmation de suppression",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+            if (confirmation == JOptionPane.YES_OPTION) {
+                modele.supprimerScooter(scooter);
+                JOptionPane.showMessageDialog(this, "Scooter supprimé.", "Suppression", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
+        });
+        panelBas.add(btnSupprimer);
+
         JButton btnFermer = new JButton("Fermer");
-        styliserBouton(btnFermer, new Color(80, 80, 80), Color.WHITE);
+        styliserBouton(btnFermer, new Color(100, 100, 100), Color.WHITE);
+        btnFermer.setPreferredSize(new Dimension(140, 40));
         btnFermer.addActionListener(e -> dispose());
         panelBas.add(btnFermer);
-        
+
         add(panelBas, BorderLayout.SOUTH);
     }
 
