@@ -107,6 +107,7 @@ public class Scooter {
     public Modele getModele() {
         return Modele;
     }
+    
 
     public Options getOptions() {
     return options;
