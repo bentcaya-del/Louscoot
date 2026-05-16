@@ -42,7 +42,6 @@ public class FenetreAjoutModele extends JFrame {
             if(m != null && !txtNom.getText().isEmpty()) {
                 Modele mod = new Modele(txtNom.getText(), txtMoteur.getText(), "Standard", "LED", "2024", (Type_permis)comboPermis.getSelectedItem(), m);
                 modeleParc.ajouterModele(mod);
-                JOptionPane.showMessageDialog(this, "Modèle ajouté au catalogue !");
                 dispose();
             }
         });

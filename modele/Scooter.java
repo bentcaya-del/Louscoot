@@ -51,6 +51,8 @@ public class Scooter {
      */
     private Parc client;
 
+    private Options options;
+
     /**
      * 
      */
@@ -101,6 +103,13 @@ public class Scooter {
     public Modele getModele() {
         return Modele;
     }
+
+    public Options getOptions() {
+    return options;
+}
+public void setOptions(Options options) {
+    this.options = options;
+}
 
     public Vector<Location> getListe_location() {
         return Liste_location;

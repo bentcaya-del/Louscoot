@@ -394,9 +394,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         labelModele.setForeground(Color.WHITE);
         carte.add(labelModele, BorderLayout.NORTH);
 
-        // Infos au centre (Rendre transparent avec setOpaque(false))
         JPanel panelInfos = new JPanel(new GridLayout(4, 1, 0, 5));
-        panelInfos.setOpaque(false); // <--- TRÈS IMPORTANT
+        panelInfos.setOpaque(false); //transparent le fond
         
         JLabel lblMoteur = new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER);
         lblMoteur.setForeground(Color.WHITE);

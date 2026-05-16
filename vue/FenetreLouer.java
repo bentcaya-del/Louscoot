@@ -12,7 +12,6 @@ public class FenetreLouer extends JFrame {
     public JTextField txtMail = new JTextField();
     public JTextField txtDateDebut = new JTextField(""); 
     public JTextField txtDateFin = new JTextField("");
-    public JTextField txtNbJours = new JTextField("");
     public JButton btnValider = new JButton("Valider la location");
 
     public FenetreLouer(Parc modele, Scooter scooter) {
@@ -21,7 +20,7 @@ public class FenetreLouer extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
-        // --- DESIGN SOMBRE ---
+        //couleur de fond sombre
         getContentPane().setBackground(new Color(45, 45, 45));
         
         JPanel panelFormulaire = new JPanel(new GridLayout(7, 2, 10, 15));
@@ -33,9 +32,7 @@ public class FenetreLouer extends JFrame {
         panelFormulaire.add(creerLabel("Numéro tel :")); panelFormulaire.add(txtNum);
         panelFormulaire.add(creerLabel("Email :")); panelFormulaire.add(txtMail);
         panelFormulaire.add(creerLabel("Date début (AAAA-MM-JJ) :")); panelFormulaire.add(txtDateDebut);
-        panelFormulaire.add(creerLabel("Date fin (AAAA-MM-JJ) :")); panelFormulaire.add(txtDateFin);
-        panelFormulaire.add(creerLabel("Nombre de jours :")); panelFormulaire.add(txtNbJours);
-        
+        panelFormulaire.add(creerLabel("Date fin (AAAA-MM-JJ) :")); panelFormulaire.add(txtDateFin);        
         add(panelFormulaire, BorderLayout.CENTER);
         
         JPanel panelBas = new JPanel();

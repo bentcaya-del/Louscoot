@@ -33,7 +33,6 @@ public class FenetreAjoutMarque extends JFrame {
             if(!txtNom.getText().isEmpty()) {
                 Marque m = new Marque(txtNom.getText(), txtPays.getText());
                 modeleParc.ajouterMarque(m);
-                JOptionPane.showMessageDialog(this, "Marque ajoutée au catalogue !");
                 dispose();
             }
         });

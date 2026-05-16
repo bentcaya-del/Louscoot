@@ -110,6 +110,10 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
         return Liste_client;
     }
 
+    public Vector<Employe> getListe_employe() {
+        return Liste_employe;
+    }
+
 
     public Vector<Scooter> getListe_scooter() {
         return Liste_scooter;

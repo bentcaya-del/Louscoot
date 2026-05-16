@@ -7,23 +7,28 @@ public class FenetreDetails extends JFrame {
     
     public FenetreDetails(Parc modele, Scooter scooter, boolean estGerant) {
         setTitle("Détails : " + scooter.getModele().getNom_modele());
-        setSize(400, 350);
+        setSize(400, 600);
         setLocationRelativeTo(null); 
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout(15, 15));
         
-        // --- DESIGN SOMBRE ---
         getContentPane().setBackground(new Color(45, 45, 45));
 
-        JPanel panelInfos = new JPanel(new GridLayout(6, 1, 5, 5));
-        panelInfos.setOpaque(false); // Transparent
+        JPanel panelInfos = new JPanel(new GridLayout(7, 1, 5, 5));
+        panelInfos.setOpaque(false); 
         panelInfos.setBorder(BorderFactory.createEmptyBorder(10, 30, 10, 30));
         
-        panelInfos.add(creerLabel("➤ Marque : " + scooter.getModele().getMarque().getNomMarque()));
-        panelInfos.add(creerLabel("➤ Modèle : " + scooter.getModele().getNom_modele()));
-        panelInfos.add(creerLabel("➤ Motorisation : " + scooter.getModele().getMotorisation()));
-        panelInfos.add(creerLabel("➤ Couleur : " + scooter.getColoris()));
-        panelInfos.add(creerLabel("➤ Permis requis : " + scooter.getModele().getPermis()));
+        panelInfos.add(creerLabel("Marque : " + scooter.getModele().getMarque().getNomMarque()));
+        panelInfos.add(creerLabel("Modèle : " + scooter.getModele().getNom_modele()));
+        panelInfos.add(creerLabel("Motorisation : " + scooter.getModele().getMotorisation()));
+        panelInfos.add(creerLabel("Couleur : " + scooter.getColoris()));
+        panelInfos.add(creerLabel("Permis requis : " + scooter.getModele().getPermis()));
+        // panelInfos.add(creerLabel("Statut : " + (scooter.isDisponible() ? "Disponible" : "Loué")));
+        panelInfos.add(creerLabel("Carburant : " + scooter.getOptions().getCarburant()));
+        panelInfos.add(creerLabel("Freinage : " + scooter.getOptions().getFreinage()));
+        panelInfos.add(creerLabel("Eclairage : " + scooter.getOptions().getEclairage()));
+        panelInfos.add(creerLabel("Stockage : " + scooter.getOptions().getStockage()));
+        panelInfos.add(creerLabel("Demarage : " + scooter.getOptions().getDémarrage()));
         
         JLabel prixLabel = new JLabel("Prix : " + scooter.getPrix_jour() + " € / jour");
         prixLabel.setFont(new Font("Arial", Font.BOLD, 15));
