@@ -10,9 +10,9 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JPanel panneauScoot ;
     private JPanel panelFilters;
     private JButton btnHistorique;
-    private JButton btnProfil;
     private JButton commande;
     private JButton contact;
+    private JButton btnFacture;
     private JButton btnAjoutScooter;
     private JButton btnAjoutEmploye;
     private JButton btnBasculer;
@@ -23,8 +23,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JComboBox<String> comboMoto;
     private JComboBox<String> comboPermis;
     private JComboBox<String> comboCouleur;
-    private JTextField dateDebut;
-    private JTextField dateFin;
     private JRadioButton radioCroissant;
     private JRadioButton radioDecroissant;
     private ButtonGroup groupePrix;
@@ -216,7 +214,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         panelNavigation.setOpaque(false);
         btnHistorique = new JButton("Historique");
         commande = new JButton("Commandes");
-        btnProfil = new JButton("Mon Profil");
+        btnFacture = new JButton("Factures");
         contact = new JButton("Contact");
         btnCataMarque = new JButton("Nouv. Marque");
         btnCataModele = new JButton("Nouv. Modèle");
@@ -229,7 +227,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         
         styliserBouton(btnHistorique, grisFonce, Color.WHITE);
         styliserBouton(commande, grisFonce, Color.WHITE);
-        styliserBouton(btnProfil, grisFonce, Color.WHITE);
+        styliserBouton(btnFacture, grisFonce, Color.WHITE);
         styliserBouton(contact, grisFonce, Color.WHITE);
         styliserBouton(btnCataMarque, grisFonce, Color.WHITE);
         styliserBouton(btnCataModele, grisFonce, Color.WHITE);
@@ -269,7 +267,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
             panelNavigation.add(btnHistorique);
         } else {
             panelNavigation.add(commande);
-            panelNavigation.add(btnProfil);
+            panelNavigation.add(btnFacture);
             panelNavigation.add(contact);
         }
 
@@ -278,15 +276,6 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         
         panelHaut.add(panelNavigation);
 
-
-        btnProfil.addActionListener(e -> {
-    // Remplacer 'clientEnCours' par la variable que tu utilises pour stocker le client actuel
-    if (clientEnCours != null) {
-        new FenetreProfil(clientEnCours);
-    } else {
-        JOptionPane.showMessageDialog(this, "Aucun utilisateur connecté.", "Erreur", JOptionPane.WARNING_MESSAGE);
-    }
-});
 
         // Configuration des barres de défilement
         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
