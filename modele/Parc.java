@@ -263,10 +263,10 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
             boolean okCouleur = couleurReq.equals("Tout") || s.getColoris().equalsIgnoreCase(couleurReq);
             boolean okDates = true;
             if (dateDebutRecherche != null && dateFinRecherche != null) {
-            okDates = s.estDIsponibleAuxDates(dateDebutRecherche, dateFinRecherche);
+            okDates = s.estDisponibleAuxDates(dateDebutRecherche, dateFinRecherche);
         }
             // Si le scooter respecte TOUS les choix, on le garde
-            if (okMarque && okPermis && okMoto && okCouleur) {
+            if (okMarque && okPermis && okMoto && okCouleur && okDates) {
                 resultats.add(s);
             }
         }
