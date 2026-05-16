@@ -31,6 +31,8 @@ public class ControleurFiltre implements ActionListener {
         String cMoto = (String) comboMoto.getSelectedItem();
         String cMarque = (String) comboMarque.getSelectedItem();
         String cCouleur = (String) comboCouleur.getSelectedItem();
+        String dateDebut = vue.txtDateDebut.getText(); 
+        String dateFin = vue.txtDateFin.getText();
     
     //anti plantage
     if (cPermis == null || cMoto == null || cMarque == null || cCouleur == null) {
