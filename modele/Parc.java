@@ -110,6 +110,10 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
         return Liste_client;
     }
 
+    public Vector<Employe> getListe_employe() {
+        return Liste_employe;
+    }
+
 
     public Vector<Scooter> getListe_scooter() {
         return Liste_scooter;
@@ -356,6 +360,12 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
     
     public void ajouterModele(Modele mod) { 
         catalogueModeles.add(mod); 
+    }
+
+    public void supprimerScooter(Scooter scooter) {
+        Liste_scooter.remove(scooter);
+        this.setChanged();
+        this.notifyObservers(Liste_scooter);
     }
 
 

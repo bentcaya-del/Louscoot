@@ -1,6 +1,10 @@
 package controleur;
-import java.awt.event.ActionEvent; // Pour utiliser le modèle
+
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import javax.swing.JOptionPane;
 import modele.*;
 import vue.*;
@@ -18,67 +22,61 @@ public class ControleurLocation implements ActionListener {
     }
 
     @Override
-public void actionPerformed(ActionEvent e) {
-    System.out.println("Bouton cliqué !"); // Pour vérifier que le contrôleur réagit
+    public void actionPerformed(ActionEvent e) {
+        try {
+            String nom = vue.txtNom.getText();
+            String prenom = vue.txtPrenom.getText();
+            String tel = vue.txtNum.getText();
+            String email = vue.txtMail.getText();
+            String dateDebut = vue.txtDateDebut.getText();
+            String dateFin = vue.txtDateFin.getText();
 
-    try {
-        //Récupération des textes
-        String nom = vue.txtNom.getText();
-        String prenom = vue.txtPrenom.getText();
-        String tel = vue.txtNum.getText();
-        String email = vue.txtMail.getText();
-        String dateDebut = vue.txtDateDebut.getText();
-        String dateFin = vue.txtDateFin.getText();
-        
-        // Risque d'erreur ici si c'est vide
-        int nbJours = Integer.parseInt(vue.txtNbJours.getText());
-
-        //Vérification de sécurité
-        if(nom.isEmpty() || prenom.isEmpty()) {
-            JOptionPane.showMessageDialog(vue, "Le nom et le prénom sont obligatoires !", "Erreur", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        System.out.println("Données lues : " + nom + " " + prenom);
-
-        //Création des objets
-        Client clientActuel = null;
-        
-        for (int i = 0; i < modele.getListe_client().size(); i++) {
-            Client c = modele.getListe_client().get(i);
-            // On vérifie si le nom et prénom correspondent
-            if (c.getNom().equalsIgnoreCase(nom) && c.getPrenom().equalsIgnoreCase(prenom)) {
-                clientActuel = c;
-                break; //On a trouvé le client on stop
+            if(nom.isEmpty() || prenom.isEmpty() || dateDebut.isEmpty() || dateFin.isEmpty()) {
+                JOptionPane.showMessageDialog(vue, "Veuillez remplir tous les champs obligatoires !", "Erreur", JOptionPane.WARNING_MESSAGE);
+                return;
             }
+
+            //CALCUL DU NOMBRE DE JOURS
+            LocalDate dDebut = LocalDate.parse(dateDebut);
+            LocalDate dFin = LocalDate.parse(dateFin);
+            
+            //la différence en jours entre les deux dates
+            int nbJoursCalc = (int) ChronoUnit.DAYS.between(dDebut, dFin);
+            
+            if (nbJoursCalc <= 0) {
+                JOptionPane.showMessageDialog(vue, "La date de fin doit être strictement après la date de début !", "Erreur dates", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            //Recherche ou Création du client
+            Client clientActuel = null;
+            for (int i = 0; i < modele.getListe_client().size(); i++) {
+                Client c = modele.getListe_client().get(i);
+                if (c.getNom().equalsIgnoreCase(nom) && c.getPrenom().equalsIgnoreCase(prenom)) {
+                    clientActuel = c;
+                    break;
+                }
+            }
+            
+            if (clientActuel == null) {
+                clientActuel = new Client(nom, prenom, tel, email);
+                modele.ajoutClient(clientActuel);
+            }
+
+            //Création du contrat avec le nombre de jours calculé
+            Employe employeAccueil = new Employe("Admin", "Accueil", "0000", 1500.0, "admin@louscoot.fr", "Gérant", modele);
+            modele.ajoutEmploye(employeAccueil);        
+            
+            employeAccueil.creerContrat(dateDebut, dateFin, nbJoursCalc, scooter, clientActuel);     
+            scooter.setEstDisponible(false); 
+
+            JOptionPane.showMessageDialog(vue, "Location validée avec succès pour " + nbJoursCalc + " jour(s) !");
+            vue.dispose();
+
+        } catch (DateTimeParseException ex) {
+            JOptionPane.showMessageDialog(vue, "Format de date invalide ! Veuillez utiliser AAAA-MM-JJ.", "Erreur Date", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(vue, "Une erreur est survenue : " + ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
         }
-        
-        // CLient pas trouvé = on le crée et on l'ajoute au Parc
-        if (clientActuel == null) {
-            clientActuel = new Client(nom, prenom, tel, email);
-            modele.ajoutClient(clientActuel);
-            System.out.println("Nouveau client ajouté au parc : " + nom);
-        } else {
-            System.out.println("Client existant retrouvé : " + nom);
-        }
-
-        Employe employeAccueil = new Employe("Admin", "Accueil", "0000", 1500.0, "admin@louscoot.fr", "Gérant", modele);
-        modele.ajoutEmploye(employeAccueil);        
-        
-        employeAccueil.creerContrat(dateDebut, dateFin, nbJours, scooter, clientActuel);     
-        
-        scooter.setEstDisponible(false); 
-
-
-        JOptionPane.showMessageDialog(vue, "Location validée avec succès !");
-        vue.dispose();
-
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(vue, "Le nombre de jours doit être un chiffre !", "Erreur", JOptionPane.ERROR_MESSAGE);
-    } catch (Exception ex) {
-        // Affiche l'erreur réelle dans la console pour t'aider
-        ex.printStackTrace(); 
-        JOptionPane.showMessageDialog(vue, "Erreur : " + ex.getMessage() + "\n(Vérifiez le format date: AAAA-MM-JJ)", "Erreur", JOptionPane.ERROR_MESSAGE);
     }
-}
 }

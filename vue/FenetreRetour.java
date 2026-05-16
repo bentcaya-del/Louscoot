@@ -11,22 +11,31 @@ public class FenetreRetour extends JFrame {
     public JTextField txtPenalite = new JTextField("");
     public JTextArea txtCommentaires = new JTextArea(4, 20);
     public JButton btnValider = new JButton("Clôturer la location");
+    
+    // --- NOUVEAU : Liste déroulante pour l'employé ---
+    public JComboBox<Employe> comboEmployes;
 
     public FenetreRetour(Parc modele, Location locationEnCours) {
         setTitle("État des lieux final - " + locationEnCours.getScooter().getModele().getNom_modele());
-        setSize(450, 450); 
+        setSize(450, 520); // Fenêtre légèrement agrandie pour la nouvelle ligne
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         
         getContentPane().setBackground(new Color(45, 45, 45));
+
+        // Remplissage de la liste des employés avec ceux du parc
+        comboEmployes = new JComboBox<>(modele.getListe_employe());
         
-        JPanel panelHaut = new JPanel(new GridLayout(3, 2, 10, 15)); 
+        // On passe à 4 lignes dans le GridLayout (au lieu de 3)
+        JPanel panelHaut = new JPanel(new GridLayout(4, 2, 10, 15)); 
         panelHaut.setOpaque(false);
         panelHaut.setBorder(BorderFactory.createEmptyBorder(20, 30, 10, 30)); 
         
         panelHaut.add(creerLabel("Date de retour (AAAA-MM-JJ) :")); panelHaut.add(txtDate);
         panelHaut.add(creerLabel("Kilométrage parcouru :")); panelHaut.add(txtKilometrage);
         panelHaut.add(creerLabel("Pénalité dégâts (€) :")); panelHaut.add(txtPenalite);
+        // Ajout de la case Employé
+        panelHaut.add(creerLabel("Employé en charge :")); panelHaut.add(comboEmployes);
         
         JPanel panelCommentaire = new JPanel(new BorderLayout());
         panelCommentaire.setOpaque(false);
