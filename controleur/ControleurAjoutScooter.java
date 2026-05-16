@@ -46,7 +46,11 @@ public class ControleurAjoutScooter implements ActionListener {
 
             // Ajout au modèle
             modeleParc.AjouterScooter(nouveauScooter);
-            modeleParc.appliquerFiltresMultiples("Tout", "Tout", "Tout", "Tout","Tout","Tout");
+
+            // Refresh de la grille pour l'afficher
+            modeleParc.appliquerFiltresMultiples("Tout", "Tout", "Tout", "Tout",null,null);
+
+            JOptionPane.showMessageDialog(vue, "Le scooter " + immat + " a été ajouté avec succès !");
             vue.dispose();
 
         } catch (NumberFormatException ex) {

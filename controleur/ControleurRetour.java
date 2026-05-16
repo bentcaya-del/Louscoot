@@ -39,9 +39,9 @@ public class ControleurRetour implements ActionListener {
             
             locationEnCours.setEtatDesLieux(etatFinal);
             
-            // Rafraîchissement
-            modele.appliquerFiltresMultiples("Tout", "Tout", "Tout", "Tout","Tout","Tout");
-            
+            // pour rafraichir
+            modele.appliquerFiltresMultiples("Tout", "Tout", "Tout", "Tout", null, null);
+            JOptionPane.showMessageDialog(vue, "État des lieux enregistré ! Le scooter est de nouveau disponible.");
             vue.dispose();
 
         } catch (NumberFormatException ex) {

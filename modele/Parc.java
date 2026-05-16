@@ -128,7 +128,7 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
     }
 
 
-    public Vector<Scooter> getScootersDisponibles(String dateRechercheDebut, String dateRechercheFin) {
+    public Vector<Scooter> getScootersDisponibles(LocalDate dateRechercheDebut, LocalDate dateRechercheFin) {
         
         Vector<Scooter> listeDispo = new Vector<Scooter>();
         for (int i = 0; i < Liste_scooter.size(); i++) {
@@ -186,7 +186,7 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
         return resultats;
     }
 
-    public Vector <Scooter> filtrerDisponibilite(String dateRechercheDebut, String dateRechercheFin){
+    public Vector <Scooter> filtrerDisponibilite(LocalDate dateRechercheDebut, LocalDate dateRechercheFin){
         Vector<Scooter> resultats = new Vector<Scooter>();
         for (int i = 0; i < Liste_scooter.size(); i++) {
         Scooter s = Liste_scooter.get(i);
@@ -254,7 +254,7 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
     }
 
         //combiner tous tes filtres
-    public void appliquerFiltresMultiples(String marqueReq, String permisReq, String motoReq, String couleurReq, String dateDebutRecherche, String dateFinRecherche) {
+    public void appliquerFiltresMultiples(String marqueReq, String permisReq, String motoReq, String couleurReq, LocalDate dateDebutRecherche, LocalDate dateFinRecherche) {
         Vector<Scooter> resultats = new Vector<Scooter>();
 
         for (int i = 0; i < Liste_scooter.size(); i++) {
@@ -266,10 +266,9 @@ private Vector<Employe> Liste_employe = new Vector<Employe>();
             boolean okMoto = motoReq.equals("Tout") || s.getModele().getMotorisation().equalsIgnoreCase(motoReq);
             boolean okCouleur = couleurReq.equals("Tout") || s.getColoris().equalsIgnoreCase(couleurReq);
             boolean okDates = true;
-            if (dateDebutRecherche != null && !dateDebutRecherche.trim().isEmpty() && !dateDebutRecherche.equals("Tout") && !dateDebutRecherche.equals("JJ/MM/AAAA") &&
-                dateFinRecherche != null && !dateFinRecherche.trim().isEmpty() && !dateFinRecherche.equals("Tout") && !dateFinRecherche.equals("JJ/MM/AAAA")) {                
-                okDates = s.estDisponibleAuxDates(dateDebutRecherche, dateFinRecherche);
-            }
+            if (dateDebutRecherche != null && dateFinRecherche != null) {
+            okDates = s.estDisponibleAuxDates(dateDebutRecherche, dateFinRecherche);
+        }
             // Si le scooter respecte TOUS les choix, on le garde
             if (okMarque && okPermis && okMoto && okCouleur && okDates) {
                 resultats.add(s);

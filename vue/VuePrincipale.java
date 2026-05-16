@@ -23,6 +23,8 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
     private JComboBox<String> comboMoto;
     private JComboBox<String> comboPermis;
     private JComboBox<String> comboCouleur;
+    private JTextField dateDebut;
+    private JTextField dateFin;
     private JRadioButton radioCroissant;
     private JRadioButton radioDecroissant;
     private ButtonGroup groupePrix;
@@ -145,12 +147,12 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         
         JLabel labelDebut = new JLabel("Date de début:");
         labelDebut.setForeground(Color.WHITE); // Texte en blanc
-        JTextField dateDebut = new JTextField("JJ/MM/AAAA");
+        JTextField dateDebut = new JTextField("AAAA-MM-JJ");
         dateDebut.setMaximumSize(new Dimension(180, 30));
 
         JLabel labelFin = new JLabel("Date de fin:");
         labelFin.setForeground(Color.WHITE); // Texte en blanc
-        JTextField dateFin = new JTextField("JJ/MM/AAAA");
+        JTextField dateFin = new JTextField("AAAA-MM-JJ");
         dateFin.setMaximumSize(new Dimension(180, 30));
 
         pDate.add(labelDebut);
@@ -329,7 +331,7 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
         // On attache l'espion au bouton "Rechercher"
         btnRechercher.addActionListener(ctrlRecherche);
 
-        ControleurFiltre ctrlFiltre = new ControleurFiltre(modele, comboPermis, comboMoto, comboMarque, comboCouleur);
+        ControleurFiltre ctrlFiltre = new ControleurFiltre(modele, comboPermis, comboMoto, comboMarque, comboCouleur, dateDebut, dateFin);
         btnAppliquer.addActionListener(ctrlFiltre);
 
         for (int i = 0; i < modele.getListe_scooter().size(); i++) {

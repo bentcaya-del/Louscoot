@@ -11,6 +11,10 @@ public class Scooter {
     /**
      * 
      */
+   
+    private boolean estDisponible = true;
+   
+   
     private String immatriculation;
 
     /**
@@ -173,21 +177,18 @@ public void setOptions(Options options) {
         this.Liste_location.add(loc);
     }
     
-    public boolean estDisponibleAuxDates(String debutPrevu, String finPrevue) {
-        LocalDate debutDemande = LocalDate.parse(debutPrevu);
-        LocalDate finDemande = LocalDate.parse(finPrevue);
-    
-        for (Location x : Liste_location){
+    public boolean estDisponibleAuxDates(LocalDate debutDemande, LocalDate finDemande) {
+        
+        for (Location x : Liste_location) {
             if (x.conflit(debutDemande, finDemande)) {
-                return false; 
+                return false;
             }
-            
-        } 
-          return true;
         }
+        return true;
+    }
     
     public void setEstDisponible(boolean dispo) {
-        // Méthode nécessaire pour cloturerLocation
+        this.estDisponible = dispo;
     }
         }
     
