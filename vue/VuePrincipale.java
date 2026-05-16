@@ -358,43 +358,79 @@ public class VuePrincipale extends JFrame implements java.util.Observer{
 
     
     private JPanel creerCarteScooter(Scooter scooter) {
-        JPanel carte = new JPanel(new BorderLayout(5, 5));
+        // 1. Panneau avec dessin de l'image en fond
+        JPanel carte = new JPanel(new BorderLayout(5, 5)) {
+            private Image imgFond;
+            {
+                try {
+                    String chemin = scooter.getCheminPhoto();
+                    if (chemin != null && !chemin.isEmpty()) {
+                        imgFond = new ImageIcon(chemin).getImage();
+                    }
+                } catch (Exception e) {}
+            }
 
-        // Nom du scooter en haut
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (imgFond != null) {
+                    // On dessine l'image sur toute la carte
+                    g.drawImage(imgFond, 0, 0, getWidth(), getHeight(), this);
+                    // On ajoute un voile noir semi-transparent pour la lisibilité
+                    g.setColor(new Color(0, 0, 0, 140)); 
+                    g.fillRect(0, 0, getWidth(), getHeight());
+                } else {
+                    // Fond sombre par défaut si pas de photo
+                    g.setColor(new Color(45, 45, 45));
+                    g.fillRect(0, 0, getWidth(), getHeight());
+                }
+            }
+        };
+        carte.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+
+        // Nom du scooter (Blanc)
         JLabel labelModele = new JLabel(scooter.getModele().getNom_modele(), SwingConstants.CENTER);
-        labelModele.setFont(new Font("Arial", Font.BOLD, 18));
+        labelModele.setFont(new Font("Arial", Font.BOLD, 20));
+        labelModele.setForeground(Color.WHITE);
         carte.add(labelModele, BorderLayout.NORTH);
 
-        //Infos au centre
-        JPanel panelInfos = new JPanel(new GridLayout(4, 1,0,5));
-        panelInfos.setBackground(Color.WHITE);
-        panelInfos.add(new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER));
-        panelInfos.add(new JLabel("Marque : " + scooter.getModele().getMarque().getNomMarque(),SwingConstants.CENTER));
-        panelInfos.add(new JLabel("Couleur : " + scooter.getColoris(), SwingConstants.CENTER));
+        // Infos au centre (Rendre transparent avec setOpaque(false))
+        JPanel panelInfos = new JPanel(new GridLayout(4, 1, 0, 5));
+        panelInfos.setOpaque(false); // <--- TRÈS IMPORTANT
+        
+        JLabel lblMoteur = new JLabel("Moteur : " + scooter.getModele().getMotorisation(), SwingConstants.CENTER);
+        lblMoteur.setForeground(Color.WHITE);
+        panelInfos.add(lblMoteur);
+        
+        JLabel lblMarque = new JLabel("Marque : " + scooter.getModele().getMarque().getNomMarque(), SwingConstants.CENTER);
+        lblMarque.setForeground(Color.WHITE);
+        panelInfos.add(lblMarque);
+        
+        JLabel lblCouleur = new JLabel("Couleur : " + scooter.getColoris(), SwingConstants.CENTER);
+        lblCouleur.setForeground(Color.WHITE);
+        panelInfos.add(lblCouleur);
         
         JLabel labelPrix = new JLabel(scooter.getPrix_jour() + " € / jour", SwingConstants.CENTER);
-        labelPrix.setForeground(new Color(0, 150, 0)); // Prix en vert
+        labelPrix.setFont(new Font("Arial", Font.BOLD, 14));
+        labelPrix.setForeground(new Color(100, 255, 100)); // Vert fluo pour le prix
         panelInfos.add(labelPrix);
         
         carte.add(panelInfos, BorderLayout.CENTER);
-        //Bouton "Plus de détails" en bas avec son action !
+
+        // 4. Bouton "Plus de détails"
         JButton btnDetails = new JButton("Plus de détails");
-        styliserBouton(btnDetails, new Color(30, 30, 30), Color.WHITE);
+        // On réutilise ta méthode styliserBouton pour qu'il soit beau (ex: Orange)
+        styliserBouton(btnDetails, new Color(255, 140, 0), Color.WHITE);
         btnDetails.addActionListener(e -> {
-            // On envoie le booléen estGerant à la page de détails !
-            FenetreDetails fenetre = new FenetreDetails(modele, scooter, estGerant);
-            fenetre.setVisible(true);
+            new FenetreDetails(modele, scooter, estGerant).setVisible(true);
         });
 
-
-        
-        carte.add(btnDetails, BorderLayout.SOUTH);
-
-        
-
+        JPanel pBas = new JPanel();
+        pBas.setOpaque(false);
+        pBas.add(btnDetails);
+        carte.add(pBas, BorderLayout.SOUTH);
 
         return carte;
-        
     }
     @Override
     public void update(java.util.Observable o, Object arg) {

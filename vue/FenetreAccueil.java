@@ -40,12 +40,12 @@ public class FenetreAccueil extends JFrame {
         titre.setBorder(BorderFactory.createEmptyBorder(30, 0, 0, 0));
         backgroundPanel.add(titre, BorderLayout.NORTH);
 
-        // Conteneur des boutons transparent
+        //boutons transparent
         JPanel panelBoutons = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 20));
         panelBoutons.setOpaque(false); 
         panelBoutons.setBorder(BorderFactory.createEmptyBorder(80, 30, 30, 30));
 
-        // Boutons sobres sans effet de survol
+        // Boutons simple
         JButton btnClient = new BoutonSimple("Espace Client", new Color(40, 40, 40));
         JButton btnGerant = new BoutonSimple("Espace Gérant", new Color(80, 80, 80));
 

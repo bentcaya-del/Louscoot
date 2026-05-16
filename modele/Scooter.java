@@ -1,5 +1,4 @@
 package modele;
-import java.io.*;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -39,6 +38,9 @@ public class Scooter {
      */
     private  Modele Modele;
 
+
+    private String cheminPhoto;
+
     /**
      * 
      */
@@ -55,7 +57,7 @@ public class Scooter {
     private Vector<Options> liste_option;
 
     public Scooter(String vimmatriculation, String vcoloris, double vkilometrage_total, double vprix_caution,
-            double vprix_jour, Modele vmodele, Parc vclient) {
+            double vprix_jour, Modele vmodele, Parc vclient,String vcheminPhoto) {
         immatriculation = vimmatriculation;
         coloris = vcoloris;
         kilometrage_total = vkilometrage_total;
@@ -65,6 +67,7 @@ public class Scooter {
         client = vclient;
         Liste_location = new Vector<Location>();
         liste_option = new Vector<Options>();
+        cheminPhoto = vcheminPhoto;
     }
 
     public void ajoutLocation(Location vlocation){
@@ -109,6 +112,10 @@ public class Scooter {
 
     public Vector<Options> getListe_option() {
         return liste_option;
+    }
+
+    public String getCheminPhoto(){
+        return cheminPhoto;
     }
 
     public void setImmatriculation(String immatriculation) {
