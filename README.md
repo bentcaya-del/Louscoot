@@ -1,6 +1,6 @@
 # Louscoot
 
-Application de location de scooters développée en Java dans le cadre d'un projet de L2 Informatique à l'Université d'Évry Val d'Essonne.
+Application de location de scooters développée en Java dans le cadre d'un projet de L2 Informatique à l'Université d'Évry Paris-Saclay.
 
 
 ## Présentation
